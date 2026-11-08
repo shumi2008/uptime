@@ -2535,7 +2535,8 @@ body.is-app-shell {
 }
 
 .is-app-shell .account-brand,
-.is-app-shell .logout-btn:not(.logout-btn--mobile) {
+.is-app-shell .logout-btn:not(.logout-btn--mobile),
+.is-app-shell .top-btn {
   display: none;
 }
 
@@ -3474,4 +3475,36 @@ body.is-app-shell:has(.hero--login),
 
 .lineup-toggle__chevron.is-open {
   transform: rotate(45deg);
+}
+
+.app-version {
+  position: fixed;
+  top: max(0.75rem, env(safe-area-inset-top));
+  left: max(0.9rem, env(safe-area-inset-left));
+  z-index: 5;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(232, 242, 240, 0.55);
+  pointer-events: none;
+}
+
+.site-footer__app {
+  margin: 0.6rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+@media (min-width: 641px) {
+  .hero .cta {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.logout-btn.top-btn {
+  top: auto;
+  bottom: clamp(1rem, 3vw, 1.5rem);
 }

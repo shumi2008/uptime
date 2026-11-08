@@ -56,6 +56,7 @@
       />
     </div>
     <button type="button" class="logout-btn" id="logout-btn">Log out</button>
+    <button type="button" class="logout-btn top-btn" id="top-btn">Top</button>
 
     <main class="hero app-view" id="home" data-app-view="home">
       <div id="page-top-clock" class="page-top-clock"></div>
@@ -76,12 +77,12 @@
       <div class="hero__content">
         <div class="cta">
           <a class="cta__primary" href="#fixtures">Fixtures</a>
-          <a class="cta__secondary" href="#league-table">League table</a>
+          <a class="cta__secondary" href="#league-table">League</a>
           <a class="cta__secondary" href="#squad">Squad</a>
           <a class="cta__secondary" href="#club-history">History</a>
-          <a class="cta__secondary" href="#monthly-uptime">Monthly view</a>
-          <a class="cta__secondary" href="#fotmob-latency">FotMob latency</a>
-          <a class="cta__secondary" href="#location-map">League map</a>
+          <a class="cta__secondary" href="#monthly-uptime">Uptime</a>
+          <a class="cta__secondary" href="#fotmob-latency">Latency</a>
+          <a class="cta__secondary" href="#location-map">Map</a>
           <a class="cta__secondary" href="#users" id="users-nav-link" hidden>Users</a>
         </div>
       </div>
@@ -90,7 +91,6 @@
     <section id="fixtures" class="fixtures-section app-view" data-app-view="fixtures">
       <div id="fixtures-app">
         <header class="charts-header">
-          <h2>Maccabi Haifa — fixtures &amp; results</h2>
           <p v-if="fetchedAt">Updated {{ fetchedLabel }}</p>
         </header>
 
@@ -201,11 +201,11 @@
         </div>
 
         <ul
-          v-show="upcomingFixtures.length && nextMatchesOpen"
+          v-show="visibleUpcomingFixtures.length"
           id="fixtures-upcoming-list"
           class="fixtures-list"
         >
-          <li v-for="match in upcomingFixtures" :key="match.id" class="fixture-card">
+          <li v-for="match in visibleUpcomingFixtures" :key="match.id" class="fixture-card">
             <div class="fixture-card__body">
               <div class="fixture-card__date">{{ match.kickoffLabel }}</div>
               <div class="fixture-teams">
@@ -256,11 +256,11 @@
         </div>
 
         <ul
-          v-show="results.length && recentResultsOpen"
+          v-show="visibleResults.length"
           id="fixtures-results-list"
           class="fixtures-list fixtures-list--results"
         >
-          <li v-for="match in results" :key="match.id" class="fixture-card fixture-card--result">
+          <li v-for="match in visibleResults" :key="match.id" class="fixture-card fixture-card--result">
             <div class="fixture-card__body">
               <div class="fixture-card__date">{{ match.kickoffLabel }}</div>
               <div class="fixture-teams fixture-teams--score">
@@ -657,6 +657,7 @@
 
     <footer class="site-footer app-view" data-app-view="more">
       <a href="https://www.fotmob.com" target="_blank" rel="noopener noreferrer">www.fotmob.com</a>
+      <p class="site-footer__app"><a href="https://haifa.f1dev.org" target="_blank" rel="noopener noreferrer">haifa.f1dev.org</a> · v__APP_VERSION__</p>
     </footer>
 
     <nav class="app-tabs" id="app-tabs" aria-label="Main navigation" hidden>

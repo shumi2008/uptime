@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const { execFile } = require("child_process");
 const { promisify } = require("util");
 const db = require("./db");
+const APP_VERSION = require("./package.json").version;
 const { getMaccabiFixtures } = require("./fixtures");
 const { getLiveMatch } = require("./live-match");
 const { getMaccabiTable } = require("./table");
@@ -271,6 +272,7 @@ function renderUsersTable(users) {
 async function renderIndexHtml(req) {
   const templatePath = path.join(__dirname, "public", "index.html");
   let html = fs.readFileSync(templatePath, "utf8");
+  html = html.replace("__APP_VERSION__", APP_VERSION);
   const username = getCookie(req, USER_COOKIE);
   const isAdmin = isAdminUser(username);
 
@@ -360,7 +362,10 @@ app.get("/login", (req, res) => {
     return res.redirect("/");
   }
 
-  res.sendFile(path.join(__dirname, "public", "login.html"));
+  const html = fs
+    .readFileSync(path.join(__dirname, "public", "login.html"), "utf8")
+    .replace("__APP_VERSION__", APP_VERSION);
+  res.type("html").send(html);
 });
 
 app.get("/register", (req, res) => {

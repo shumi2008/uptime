@@ -109,6 +109,11 @@ async function logout() {
 
 document.getElementById("logout-btn")?.addEventListener("click", logout);
 document.getElementById("logout-btn-mobile")?.addEventListener("click", logout);
+document.getElementById("top-btn")?.addEventListener("click", () => {
+  const target = document.getElementById("fixtures");
+  if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  else window.scrollTo({ top: 0, behavior: "smooth" });
+});
 
 async function registerBrowserSession() {
   try {
@@ -348,8 +353,8 @@ createApp({
     const fetchedAt = ref("");
     const error = ref("");
     const loading = ref(true);
-    const nextMatchesPref = ref(readFixtureSectionOpen(FIXTURES_NEXT_OPEN_KEY));
-    const recentResultsPref = ref(readFixtureSectionOpen(FIXTURES_RESULTS_OPEN_KEY));
+    const nextMatchesPref = ref(readFixtureSectionOpen(FIXTURES_NEXT_OPEN_KEY, false));
+    const recentResultsPref = ref(readFixtureSectionOpen(FIXTURES_RESULTS_OPEN_KEY, false));
     const nextLiveChoice = ref(null);
     const resultsLiveChoice = ref(null);
     const sawPrematch = ref(false);
@@ -522,6 +527,16 @@ createApp({
       }
       return recentResultsPref.value;
     });
+
+    const FOLDED_PREVIEW_COUNT = 3;
+    const visibleUpcomingFixtures = computed(() =>
+      nextMatchesOpen.value
+        ? upcomingFixtures.value
+        : upcomingFixtures.value.slice(0, FOLDED_PREVIEW_COUNT)
+    );
+    const visibleResults = computed(() =>
+      recentResultsOpen.value ? results.value : results.value.slice(0, FOLDED_PREVIEW_COUNT)
+    );
 
     function toggleLiveSection(section, choice, isOpen) {
       const matchId = matchIsLive.value
@@ -732,6 +747,8 @@ createApp({
     return {
       fixtures,
       upcomingFixtures,
+      visibleUpcomingFixtures,
+      visibleResults,
       results,
       nextMatch,
       source,
