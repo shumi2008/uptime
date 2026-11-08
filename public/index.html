@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#061216" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Uptime" />
+    <title>Uptime</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+  </head>
+  <body>
+    <header class="mobile-chrome" id="mobile-chrome" hidden>
+      <div class="mobile-chrome__brand">
+        <p class="logged-in-user logged-in-user--mobile" id="logged-in-user-mobile" hidden></p>
+        <img
+          class="account-brand__logo account-brand__logo--mobile"
+          src="https://images.fotmob.com/image_resources/logo/teamlogo/10185.png"
+          alt="Maccabi Haifa"
+          width="120"
+          height="120"
+          decoding="async"
+        />
+      </div>
+      <div id="mobile-chrome-clock" class="mobile-chrome__clock"></div>
+      <p class="mobile-chrome__title">Uptime</p>
+      <button type="button" class="logout-btn logout-btn--mobile" id="logout-btn-mobile">
+        Log out
+      </button>
+    </header>
+
+    <div class="account-brand" id="account-brand">
+      <p class="logged-in-user" id="logged-in-user" hidden></p>
+      <img
+        class="account-brand__logo"
+        src="https://images.fotmob.com/image_resources/logo/teamlogo/10185.png"
+        alt="Maccabi Haifa"
+        width="160"
+        height="160"
+        decoding="async"
+      />
+    </div>
+    <button type="button" class="logout-btn" id="logout-btn">Log out</button>
+
+    <main class="hero app-view" id="home" data-app-view="home">
+      <div id="page-top-clock" class="page-top-clock"></div>
+      <div class="hero__atmosphere" aria-hidden="true"></div>
+      <div class="hero__visual" id="hero-visual">
+        <img
+          class="hero__stadium"
+          id="hero-stadium"
+          src="https://static.independent.co.uk/2023/10/19/15/9f75b5e1b804e04c79bcccc1c19e1364Y29udGVudHNlYXJjaGFwaSwxNjk3ODEwMTg5-2.39070783.jpg"
+          alt="Sammy Ofer Stadium at night during UEFA Nations League"
+          width="1500"
+          height="1000"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <div class="hero__signals" id="hero-signals" aria-hidden="true"></div>
+      </div>
+      <div class="hero__content">
+        <div class="cta">
+          <a class="cta__primary" href="#fixtures">Fixtures</a>
+          <a class="cta__secondary" href="#league-table">League table</a>
+          <a class="cta__secondary" href="#squad">Squad</a>
+          <a class="cta__secondary" href="#club-history">History</a>
+          <a class="cta__secondary" href="#monthly-uptime">Monthly view</a>
+          <a class="cta__secondary" href="#fotmob-latency">FotMob latency</a>
+          <a class="cta__secondary" href="#location-map">League map</a>
+          <a class="cta__secondary" href="#users" id="users-nav-link" hidden>Users</a>
+        </div>
+      </div>
+    </main>
+
+    <section id="fixtures" class="fixtures-section app-view" data-app-view="fixtures">
+      <div id="fixtures-app">
+        <header class="charts-header">
+          <h2>Maccabi Haifa — fixtures &amp; results</h2>
+          <p v-if="fetchedAt">Updated {{ fetchedLabel }}</p>
+        </header>
+
+        <div v-if="error" class="charts-error">{{ error }}</div>
+        <p v-else-if="loading" class="fixtures-loading">Loading fixtures…</p>
+
+        <div v-if="nextMatch || canShowLastPlayed" class="match-windows">
+        <article
+          v-if="nextMatch && !nextMatchStarted"
+          class="next-match"
+          aria-labelledby="next-match-heading"
+        >
+          <p id="next-match-heading" class="next-match__label">Next match</p>
+          <div class="fixture-teams fixture-teams--featured next-match__teams">
+            <span class="fixture-team">
+              <img
+                v-if="nextMatch.homeLogo"
+                class="team-logo"
+                :src="nextMatch.homeLogo"
+                :alt="nextMatch.home"
+                loading="lazy"
+              />
+              <span class="fixture-team__name">{{ nextMatch.home }}</span>
+            </span>
+            <span class="fixture-vs">vs</span>
+            <span class="fixture-team">
+              <img
+                v-if="nextMatch.awayLogo"
+                class="team-logo"
+                :src="nextMatch.awayLogo"
+                :alt="nextMatch.away"
+                loading="lazy"
+              />
+              <span class="fixture-team__name">{{ nextMatch.away }}</span>
+            </span>
+          </div>
+          <div
+            v-if="nextMatchCountdown"
+            class="next-match__clock"
+            role="timer"
+            :aria-label="nextMatchCountdown + ' ' + nextMatchCountdownCaption"
+          >
+            <p class="next-match__countdown">{{ nextMatchCountdown }}</p>
+            <p class="next-match__countdown-caption">{{ nextMatchCountdownCaption }}</p>
+          </div>
+          <teleport to="#page-top-clock">
+            <div
+              v-if="nextMatchCountdown"
+              class="next-match__clock page-top-clock__clock"
+              aria-hidden="true"
+            >
+              <p class="next-match__countdown">{{ nextMatchCountdown }}</p>
+              <p class="next-match__countdown-caption">{{ nextMatchCountdownCaption }}</p>
+            </div>
+          </teleport>
+          <teleport to="#mobile-chrome-clock">
+            <p v-if="nextMatchCountdown" class="mobile-chrome__countdown">{{ nextMatchCountdown }}</p>
+          </teleport>
+          <p class="next-match__meta">{{ nextMatchMetaLine(nextMatch, false) }}</p>
+        </article>
+
+        <match-report v-if="liveReport" :key="liveReport.matchId" :report="liveReport"></match-report>
+
+        <div v-if="canShowLastPlayed" class="fixtures-split fixtures-split--collapsible">
+          <button
+            type="button"
+            class="fixtures-split__toggle"
+            :aria-expanded="lastPlayedOpen"
+            aria-controls="last-played-report"
+            @click="toggleLastPlayed"
+          >
+            <span
+              class="fixtures-split__chevron"
+              :class="{ 'is-open': lastPlayedOpen }"
+              aria-hidden="true"
+            ></span>
+            <span class="fixtures-split__label">Last played</span>
+          </button>
+        </div>
+        <p v-if="canShowLastPlayed && lastPlayedOpen && lastPlayedLoading" class="fixtures-loading">
+          Loading last played…
+        </p>
+        <p v-else-if="canShowLastPlayed && lastPlayedOpen && lastPlayedError" class="charts-error">
+          {{ lastPlayedError }}
+        </p>
+        <match-report
+          v-else-if="canShowLastPlayed && lastPlayedOpen && lastPlayedReport"
+          :key="lastPlayedReport.matchId"
+          :report="lastPlayedReport"
+        ></match-report>
+        </div>
+
+        <div v-if="upcomingFixtures.length" class="fixtures-split fixtures-split--collapsible">
+          <button
+            type="button"
+            class="fixtures-split__toggle"
+            :aria-expanded="nextMatchesOpen"
+            aria-controls="fixtures-upcoming-list"
+            @click="toggleNextMatches"
+          >
+            <span
+              class="fixtures-split__chevron"
+              :class="{ 'is-open': nextMatchesOpen }"
+              aria-hidden="true"
+            ></span>
+            <span class="fixtures-split__label">Next matches...</span>
+          </button>
+        </div>
+
+        <ul
+          v-show="upcomingFixtures.length && nextMatchesOpen"
+          id="fixtures-upcoming-list"
+          class="fixtures-list"
+        >
+          <li v-for="match in upcomingFixtures" :key="match.id" class="fixture-card">
+            <div class="fixture-card__body">
+              <div class="fixture-card__date">{{ match.kickoffLabel }}</div>
+              <div class="fixture-teams">
+                <span class="fixture-team">
+                  <img
+                    v-if="match.homeLogo"
+                    class="team-logo"
+                    :src="match.homeLogo"
+                    :alt="match.home"
+                    loading="lazy"
+                  />
+                  <span class="fixture-team__name">{{ match.home }}</span>
+                </span>
+                <span class="fixture-vs">vs</span>
+                <span class="fixture-team">
+                  <img
+                    v-if="match.awayLogo"
+                    class="team-logo"
+                    :src="match.awayLogo"
+                    :alt="match.away"
+                    loading="lazy"
+                  />
+                  <span class="fixture-team__name">{{ match.away }}</span>
+                </span>
+              </div>
+              <p v-if="fixtureCardMetaLine(match)" class="fixture-card__meta">
+                {{ fixtureCardMetaLine(match) }}
+              </p>
+            </div>
+          </li>
+        </ul>
+
+        <div v-if="results.length" class="fixtures-split fixtures-split--collapsible">
+          <button
+            type="button"
+            class="fixtures-split__toggle"
+            :aria-expanded="recentResultsOpen"
+            aria-controls="fixtures-results-list"
+            @click="toggleRecentResults"
+          >
+            <span
+              class="fixtures-split__chevron"
+              :class="{ 'is-open': recentResultsOpen }"
+              aria-hidden="true"
+            ></span>
+            <span class="fixtures-split__label">Recent results</span>
+          </button>
+        </div>
+
+        <ul
+          v-show="results.length && recentResultsOpen"
+          id="fixtures-results-list"
+          class="fixtures-list fixtures-list--results"
+        >
+          <li v-for="match in results" :key="match.id" class="fixture-card fixture-card--result">
+            <div class="fixture-card__body">
+              <div class="fixture-card__date">{{ match.kickoffLabel }}</div>
+              <div class="fixture-teams fixture-teams--score">
+                <span class="fixture-team">
+                  <img
+                    v-if="match.homeLogo"
+                    class="team-logo"
+                    :src="match.homeLogo"
+                    :alt="match.home"
+                    loading="lazy"
+                  />
+                  <span class="fixture-team__name">{{ match.home }}</span>
+                </span>
+                <span class="fixture-score">{{ match.scoreLabel }}</span>
+                <span class="fixture-team">
+                  <img
+                    v-if="match.awayLogo"
+                    class="team-logo"
+                    :src="match.awayLogo"
+                    :alt="match.away"
+                    loading="lazy"
+                  />
+                  <span class="fixture-team__name">{{ match.away }}</span>
+                </span>
+              </div>
+              <p v-if="resultCardMetaLine(match)" class="fixture-card__meta">
+                {{ resultCardMetaLine(match) }}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section
+      id="league-table"
+      class="charts-section league-table-section app-view"
+      data-app-view="table"
+    >
+      <div id="table-app">
+        <header class="charts-header">
+          <h2>{{ leagueName || 'League table' }}</h2>
+          <p v-if="fetchedAt">Updated {{ fetchedLabel }}</p>
+        </header>
+
+        <div v-if="error" class="charts-error">{{ error }}</div>
+        <p v-else-if="loading" class="league-table-loading">Loading table…</p>
+
+        <div v-else class="league-table-wrap">
+          <table class="league-table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Team</th>
+                <th scope="col">PL</th>
+                <th scope="col">W</th>
+                <th scope="col">D</th>
+                <th scope="col">L</th>
+                <th scope="col">+/-</th>
+                <th scope="col">GD</th>
+                <th scope="col">PTS</th>
+                <th scope="col">Next</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="row in rows"
+                :key="row.id"
+                class="league-table__row"
+                :class="{ 'league-table__row--highlight': row.highlighted }"
+                :style="row.qualColor ? { '--qual-color': row.qualColor } : null"
+              >
+                <td class="league-table__rank">{{ row.rank }}</td>
+                <td class="league-table__team">
+                  <span class="league-table__team-inner">
+                    <img
+                      v-if="row.logo"
+                      class="team-logo"
+                      :src="row.logo"
+                      :alt="row.name"
+                      loading="lazy"
+                    />
+                    <span class="league-table__team-name">{{ row.name }}</span>
+                  </span>
+                </td>
+                <td>{{ row.played }}</td>
+                <td>{{ row.wins }}</td>
+                <td>{{ row.draws }}</td>
+                <td>{{ row.losses }}</td>
+                <td>{{ row.goals }}</td>
+                <td>{{ row.goalDiff }}</td>
+                <td class="league-table__pts">{{ row.points }}</td>
+                <td class="league-table__next">
+                  <span v-if="row.nextOpponent" class="league-table__next-inner">
+                    <img
+                      v-if="row.nextOpponent.logo"
+                      class="team-logo team-logo--next"
+                      :src="row.nextOpponent.logo"
+                      :alt="row.nextOpponent.name"
+                      loading="lazy"
+                    />
+                    <span class="league-table__next-details">
+                      <span class="league-table__next-name">{{ row.nextOpponent.name }}</span>
+                      <span v-if="row.nextOpponent.kickoffLabel" class="league-table__next-date">
+                        {{ row.nextOpponent.kickoffLabel }}
+                      </span>
+                    </span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul v-if="legend.length" class="league-table-legend">
+          <li v-for="item in legend" :key="item.title">
+            <span class="league-table-legend__swatch" :style="{ background: item.color }"></span>
+            {{ item.title }}
+          </li>
+        </ul>
+
+        <ul v-if="deductions.length" class="league-table-notes">
+          <li v-for="note in deductions" :key="note.team">
+            * {{ note.team }} has been deducted {{ note.points }} points
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="location-map" class="charts-section map-section app-view" data-app-view="map">
+      <header class="charts-header">
+        <h2>League cities heatmap</h2>
+        <p>Heat intensity per city based on league table points — one glow per city.</p>
+      </header>
+      <p id="map-status" class="map-status">Loading map…</p>
+      <div id="leaflet-map" class="leaflet-map" aria-label="Heatmap of league table cities in Israel"></div>
+      <div class="map-toolbar">
+        <div class="map-actions">
+          <button id="map-league-btn" type="button" class="map-action-btn map-action-btn--secondary" disabled>
+            Cities
+          </button>
+          <button id="map-rankings-btn" type="button" class="map-action-btn map-action-btn--secondary" disabled>
+            Rankings
+          </button>
+          <button id="map-results-btn" type="button" class="map-action-btn map-action-btn--secondary" disabled>
+            Results
+          </button>
+          <button id="map-locate-btn" type="button" class="map-action-btn map-action-btn--secondary">
+            Location
+          </button>
+        </div>
+        <div id="map-rank-legend" class="map-rank-legend" aria-label="League map legend">
+          <p class="map-rank-legend__title">Map legend</p>
+          <p class="map-rank-legend__placeholder">Loading league data…</p>
+        </div>
+      </div>
+
+      <div id="map-results-charts" class="map-results-charts charts-grid" hidden>
+        <div id="map-goals-panel" class="chart-panel chart-panel--wide map-goals-panel" hidden>
+          <h3>Goals per match</h3>
+          <canvas
+            id="haifa-goals-chart"
+            aria-label="Line chart of Maccabi Haifa goals scored and conceded per Ligat ha'Al match"
+          ></canvas>
+          <ul
+            id="haifa-goal-scorers"
+            class="goal-scorers"
+            aria-label="Goals scored by player"
+          ></ul>
+          <ul class="chart-legend">
+            <li><span class="swatch swatch--conceded"></span> Goals conceded</li>
+          </ul>
+        </div>
+        <div id="map-results-doughnut" class="chart-panel" hidden>
+          <h3>Ligat ha'Al — season results</h3>
+          <canvas
+            id="haifa-results-pie"
+            aria-label="Doughnut chart of wins, losses, and ties with Maccabi Haifa logo"
+          ></canvas>
+          <ul
+            id="haifa-results-legend"
+            class="season-results"
+            aria-label="Result against each opponent"
+          ></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="squad" class="charts-section squad-section app-view" data-app-view="squad">
+      <div id="squad-app"></div>
+    </section>
+
+    <section
+      id="club-history"
+      class="charts-section history-section app-view"
+      data-app-view="map"
+    >
+      <header class="charts-header">
+        <h2>Maccabi Haifa — league history</h2>
+        <p>
+          Every season from 1913/14 (founding) through today appears on the chart; years without a table position are left blank.
+        </p>
+        <p id="club-history-summary" class="history-section__summary"></p>
+      </header>
+      <p id="club-history-status" class="history-section__status">Loading club history…</p>
+      <div class="history-section__charts map-results-charts">
+        <div class="chart-panel chart-panel--wide map-goals-panel history-section__panel">
+          <h3>League finish by season</h3>
+          <canvas
+            id="haifa-history-chart"
+            aria-label="Line chart of league finish by season: every season on the horizontal axis, league position on the vertical axis with 1st at the top"
+          ></canvas>
+          <ul class="chart-legend history-section__legend">
+            <li><span class="swatch swatch--gold"></span> Champions (1st)</li>
+            <li><span class="swatch swatch--up"></span> Top 3</li>
+            <li><span class="swatch swatch--partial"></span> Mid-table</li>
+            <li><span class="swatch swatch--conceded"></span> 10th or lower</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="monthly-uptime" class="charts-section charts-section-aligned app-view" data-app-view="more">
+      <div id="charts-app">
+        <header class="charts-header">
+          <h2>Monthly uptime</h2>
+          <p v-if="month">{{ month }} — hours online each day since last boot</p>
+          <p v-else>Loading monthly data…</p>
+        </header>
+
+        <div v-if="error" class="charts-error charts-aligned">{{ error }}</div>
+
+        <div v-else class="charts-aligned map-results-charts charts-grid">
+          <div class="chart-panel">
+            <h3>Hours up by day</h3>
+            <canvas ref="barCanvas" aria-label="Bar chart of hours up per day"></canvas>
+          </div>
+          <div class="chart-panel">
+            <h3>Days this month</h3>
+            <canvas ref="doughnutCanvas" aria-label="Chart of up versus down days"></canvas>
+            <ul class="chart-legend" v-if="summary">
+              <li><span class="swatch swatch--up"></span> Fully up: {{ summary.daysUp }}</li>
+              <li><span class="swatch swatch--partial"></span> Partial: {{ summary.daysPartial }}</li>
+              <li><span class="swatch swatch--down"></span> Down / unknown: {{ summary.daysDown }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="fotmob-latency"
+      class="charts-section charts-section--latency charts-section-aligned app-view"
+      data-app-view="more"
+    >
+      <div id="latency-app">
+        <header class="charts-header">
+          <h2>FotMob latency</h2>
+          <p>
+            Pinging www.fotmob.com every {{ intervalLabel }}
+            <template v-if="latestLabel"> — latest {{ latestLabel }}</template>
+          </p>
+        </header>
+
+        <div v-if="error && !samples.length" class="charts-error charts-aligned">{{ error }}</div>
+
+        <div class="charts-aligned map-results-charts latency-app__content">
+        <div class="latency-meta" v-if="samples.length">
+          <p>
+            <span class="latency-meta__label">Last</span>
+            <strong>{{ latestMs }}</strong>
+          </p>
+          <p>
+            <span class="latency-meta__label">Avg</span>
+            <strong>{{ averageMs }}</strong>
+          </p>
+          <p>
+            <span class="latency-meta__label">Status</span>
+            <strong :class="ok ? 'status-ok' : 'status-bad'">{{ statusText }}</strong>
+          </p>
+        </div>
+
+        <div class="chart-panel chart-panel--wide map-goals-panel">
+          <h3>Ping latency</h3>
+          <canvas ref="latencyCanvas" aria-label="Line chart of FotMob ping latency"></canvas>
+        </div>
+
+        <div class="latency-controls">
+          <div class="time-range">
+            <label class="time-range__label" for="time-range-select">Time frame</label>
+            <select
+              id="time-range-select"
+              class="time-range__select"
+              aria-label="Latency time frame"
+              :value="timeRangeSelectValue"
+              @change="onTimeRangeSelect"
+            >
+              <option
+                v-for="option in timeRangeOptions"
+                :key="option.hours"
+                :value="option.hours"
+              >
+                Last {{ option.label }}
+              </option>
+              <option value="all">Since start</option>
+              <option v-if="!isPresetTimeRange && !timeRangeUseAll" value="custom">
+                Custom: last {{ timeRangeHours }}h
+              </option>
+            </select>
+            <p v-if="captureStartedLabel" class="time-range__started">{{ captureStartedLabel }}</p>
+            <label class="time-range__custom" for="custom-hours-slider">
+              Custom: last <strong>{{ timeRangeHours }}h</strong>
+            </label>
+            <input
+              id="custom-hours-slider"
+              class="ping-interval__slider"
+              type="range"
+              min="1"
+              max="168"
+              step="1"
+              v-model.number="timeRangeHours"
+              @change="onTimeRangeChange"
+            />
+            <div class="ping-interval__scale" aria-hidden="true">
+              <span>1h</span>
+              <span>1 day</span>
+              <span>7 days</span>
+            </div>
+          </div>
+
+          <div class="ping-interval">
+            <label class="ping-interval__label" for="ping-interval-slider">
+              Ping every <strong>{{ intervalLabel }}</strong>
+            </label>
+            <input
+              id="ping-interval-slider"
+              class="ping-interval__slider"
+              type="range"
+              min="1"
+              max="120"
+              step="1"
+              v-model.number="intervalSeconds"
+              @input="onIntervalChange"
+            />
+            <div class="ping-interval__scale" aria-hidden="true">
+              <span>1s</span>
+              <span>60s</span>
+              <span>120s</span>
+            </div>
+          </div>
+
+          <button type="button" class="clear-btn" @click="clearAll">
+            Clear graph &amp; reset
+          </button>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="uptime-clock" class="uptime-section app-view" data-app-view="more">
+      <p class="brand">Uptime</p>
+      <h1>This Mac has been running for</h1>
+      <p class="uptime" id="uptime" aria-live="polite">Loading…</p>
+      <p class="lede" id="hostname"></p>
+    </section>
+
+    <section
+      id="users"
+      class="charts-section users-section app-view"
+      data-app-view="more"
+      hidden
+    >
+      <div id="users-app">
+        <header class="charts-header">
+          <h2>Users</h2>
+          <p>
+            Live rows from the TimescaleDB <code>users</code> table. Column names and values
+            match the database exactly. Passwords are stored as bcrypt hashes only.
+          </p>
+        </header>
+
+        <!-- USERS_TABLE -->
+      </div>
+    </section>
+
+    <section id="learn" class="section section--muted app-view" data-app-view="more">
+      <h2>Learn more</h2>
+      <p>
+        Daily hours are inferred from the current boot session
+        (<code>os.uptime()</code>). Days before the last reboot appear as down or unknown.
+        Latency samples and session history are stored in TimescaleDB.
+      </p>
+    </section>
+
+    <footer class="site-footer app-view" data-app-view="more">
+      <a href="https://www.fotmob.com" target="_blank" rel="noopener noreferrer">www.fotmob.com</a>
+    </footer>
+
+    <nav class="app-tabs" id="app-tabs" aria-label="Main navigation" hidden>
+      <button type="button" class="app-tabs__btn is-active" data-app-view="home" aria-current="page">
+        <span class="app-tabs__label">Home</span>
+      </button>
+      <button type="button" class="app-tabs__btn" data-app-view="fixtures">
+        <span class="app-tabs__label">Fixtures</span>
+      </button>
+      <button type="button" class="app-tabs__btn" data-app-view="table">
+        <span class="app-tabs__label">Table</span>
+      </button>
+      <button type="button" class="app-tabs__btn" data-app-view="squad">
+        <span class="app-tabs__label">Squad</span>
+      </button>
+      <button type="button" class="app-tabs__btn" data-app-view="map">
+        <span class="app-tabs__label">Map</span>
+      </button>
+      <button type="button" class="app-tabs__btn" data-app-view="more">
+        <span class="app-tabs__label">More</span>
+      </button>
+    </nav>
+
+    <script type="text/x-template" id="match-report-template">
+      <article
+        :id="report.idPrefix + '-report'"
+        class="next-match next-match--live"
+        :aria-labelledby="report.idPrefix + '-heading'"
+      >
+        <p :id="report.idPrefix + '-heading'" class="next-match__label">
+          <span
+            v-if="report.live"
+            class="next-match__live-dot"
+            aria-hidden="true"
+          ></span>
+          {{ report.heading }}
+        </p>
+        <div class="fixture-teams fixture-teams--featured next-match__teams">
+          <span class="fixture-team">
+            <img
+              v-if="report.homeLogo"
+              class="team-logo"
+              :src="report.homeLogo"
+              :alt="report.home"
+              loading="lazy"
+            />
+            <span class="fixture-team__name">{{ report.home }}</span>
+          </span>
+          <div
+            class="next-match__score-block"
+            aria-live="polite"
+            :aria-label="report.home + ' ' + report.score + ' ' + report.away + ', ' + report.status"
+          >
+            <p class="next-match__score">{{ report.score }}</p>
+            <p class="next-match__status">{{ report.status }}</p>
+          </div>
+          <span class="fixture-team">
+            <img
+              v-if="report.awayLogo"
+              class="team-logo"
+              :src="report.awayLogo"
+              :alt="report.away"
+              loading="lazy"
+            />
+            <span class="fixture-team__name">{{ report.away }}</span>
+          </span>
+        </div>
+        <section v-if="report.goals.length" class="next-match__goals-wrap" aria-label="Goals">
+          <h3 class="next-match__section-label">Goals</h3>
+          <ul class="next-match__goals">
+            <li
+              v-for="goal in report.goals"
+              :key="goal.id"
+              class="next-match__goal"
+              :class="goal.isHome ? 'next-match__goal--home' : 'next-match__goal--away'"
+            >
+              <span class="next-match__goal-minute">{{ goal.minute }}</span>
+              <span class="next-match__goal-text">
+                <span class="next-match__goal-player">{{ goal.player }}</span>
+                <span v-if="goal.detail" class="next-match__goal-detail">{{ goal.detail }}</span>
+              </span>
+            </li>
+          </ul>
+        </section>
+        <teleport v-if="report.pinClock" to="#page-top-clock">
+          <div class="next-match__clock page-top-clock__clock" aria-hidden="true">
+            <p class="next-match__countdown">{{ report.score }}</p>
+            <p class="next-match__countdown-caption">{{ report.status }}</p>
+          </div>
+        </teleport>
+        <teleport v-if="report.pinClock" to="#mobile-chrome-clock">
+          <p class="mobile-chrome__countdown">
+            {{ report.score }}<span class="mobile-chrome__status">{{ report.status }}</span>
+          </p>
+        </teleport>
+        <p class="next-match__meta">{{ report.meta }}</p>
+      </article>
+
+      <article
+        v-if="report.stats.length || report.statPeriods.length"
+        class="next-match next-match--panel"
+        :aria-labelledby="report.idPrefix + '-stats-heading'"
+      >
+        <h3 :id="report.idPrefix + '-stats-heading'" class="next-match__label">Top stats</h3>
+        <div v-if="report.stats.length" class="next-match__stats">
+          <div
+            v-for="stat in report.stats"
+            :key="stat.key || stat.title"
+            class="next-match__stat"
+            :class="{
+              'next-match__stat--bar': stat.homeShare != null,
+              'next-match__stat--compared': stat.highlighted,
+            }"
+          >
+            <span
+              class="next-match__stat-value next-match__stat-value--home"
+              :class="{ 'next-match__stat-value--lead': stat.highlighted === 'home' }"
+            >{{ stat.home }}</span>
+            <span class="next-match__stat-title">{{ stat.title }}</span>
+            <span
+              class="next-match__stat-value next-match__stat-value--away"
+              :class="{ 'next-match__stat-value--lead': stat.highlighted === 'away' }"
+            >{{ stat.away }}</span>
+            <span
+              v-if="stat.homeShare != null"
+              class="next-match__stat-bar"
+              aria-hidden="true"
+            >
+              <span :style="{ width: stat.homeShare + '%' }"></span>
+            </span>
+          </div>
+        </div>
+        <details
+          v-if="report.statPeriods.length"
+          class="next-match__all-stats"
+          :open="allStatsOpen"
+          @toggle="onAllStatsToggle"
+        >
+          <summary class="next-match__all-stats-toggle">
+            <span class="next-match__all-stats-chevron" aria-hidden="true"></span>
+            All stats
+          </summary>
+          <div
+            v-if="activeStatPeriod"
+            :id="report.idPrefix + '-all-stats'"
+            class="next-match__all-stats-body"
+          >
+            <div class="next-match__stat-sides">
+              <span>{{ report.homeName }}</span>
+              <span></span>
+              <span>{{ report.awayName }}</span>
+            </div>
+            <div
+              v-if="report.statPeriods.length > 1"
+              class="next-match__stat-periods"
+              role="group"
+              aria-label="Stat period"
+            >
+              <button
+                v-for="period in report.statPeriods"
+                :key="period.key"
+                type="button"
+                class="next-match__stat-period"
+                :class="{ 'is-selected': period.key === activeStatPeriod.key }"
+                :aria-pressed="period.key === activeStatPeriod.key"
+                @click="selectStatPeriod(period.key)"
+              >
+                {{ period.label }}
+              </button>
+            </div>
+            <section
+              v-for="group in activeStatPeriod.groups"
+              :key="group.key"
+              class="next-match__stat-group"
+              :aria-label="group.title"
+            >
+              <h4 class="next-match__stat-group-title">{{ group.title }}</h4>
+              <div class="next-match__stats">
+                <div
+                  v-for="stat in group.stats"
+                  :key="stat.key"
+                  class="next-match__stat next-match__stat--wide"
+                  :class="{
+                    'next-match__stat--bar': stat.homeShare != null,
+                    'next-match__stat--compared': stat.highlighted,
+                  }"
+                >
+                  <span
+                    class="next-match__stat-value next-match__stat-value--home"
+                    :class="{ 'next-match__stat-value--lead': stat.highlighted === 'home' }"
+                  >{{ stat.home }}</span>
+                  <span class="next-match__stat-title">{{ stat.title }}</span>
+                  <span
+                    class="next-match__stat-value next-match__stat-value--away"
+                    :class="{ 'next-match__stat-value--lead': stat.highlighted === 'away' }"
+                  >{{ stat.away }}</span>
+                  <span
+                    v-if="stat.homeShare != null"
+                    class="next-match__stat-bar"
+                    aria-hidden="true"
+                  >
+                    <span :style="{ width: stat.homeShare + '%' }"></span>
+                  </span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </details>
+      </article>
+
+      <article
+        v-if="report.events.length"
+        class="next-match next-match--panel"
+        :aria-labelledby="report.idPrefix + '-events-heading'"
+      >
+        <h3 :id="report.idPrefix + '-events-heading'" class="next-match__label">Events</h3>
+        <ol class="next-match__events next-match__event-list">
+          <li
+            v-for="event in report.events"
+            :key="event.id"
+            class="next-match__event"
+            :class="[
+              'next-match__event--' + event.type,
+              {
+                'next-match__event--marker': event.marker,
+                'next-match__event--home': event.isHome === true,
+                'next-match__event--away': event.isHome === false,
+              },
+            ]"
+          >
+            <div class="next-match__event-body">
+              <span v-if="!event.marker" class="next-match__event-minute">{{ event.minute }}</span>
+              <span v-if="!event.marker" class="next-match__event-icon" aria-hidden="true"></span>
+              <span class="next-match__event-text">
+                <span class="next-match__event-label">{{ event.label }}</span>
+                <span v-if="event.player" class="next-match__event-player">{{ event.player }}</span>
+                <span v-if="event.detail" class="next-match__event-detail">{{ event.detail }}</span>
+              </span>
+            </div>
+          </li>
+        </ol>
+      </article>
+
+      <article
+        v-if="report.lineup"
+        class="next-match next-match--panel"
+        :aria-labelledby="report.idPrefix + '-lineup-heading'"
+      >
+        <h3 :id="report.idPrefix + '-lineup-heading'" class="next-match__label">
+          <button
+            type="button"
+            class="lineup-toggle"
+            :class="{ 'lineup-toggle--static': !isMobile }"
+            :aria-expanded="isMobile ? String(lineupOpen) : undefined"
+            :aria-controls="report.idPrefix + '-lineup-body'"
+            :disabled="!isMobile"
+            @click="toggleLineup"
+          >
+            Lineup
+            <span v-if="isMobile" class="lineup-toggle__chevron" :class="{ 'is-open': lineupOpen }" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="lineup" :id="report.idPrefix + '-lineup-body'" v-show="!isMobile || lineupOpen">
+          <section
+            v-for="side in report.lineupSides"
+            :key="side.key"
+            class="lineup__side"
+            :aria-label="side.tablePosition ? side.name + ' lineup, ' + side.tablePosition + ' in the league table' : side.name + ' lineup'"
+          >
+            <header class="lineup__head">
+              <p class="lineup__team">
+                <span
+                  v-if="side.tablePosition"
+                  class="lineup__rank"
+                >{{ side.tablePosition }}</span>
+                <img
+                  v-if="side.logo"
+                  class="lineup__logo"
+                  :src="side.logo"
+                  alt=""
+                  loading="lazy"
+                />
+                <span class="lineup__team-name">{{ side.name }}</span>
+              </p>
+              <p v-if="side.formation" class="lineup__meta">{{ side.formation }}</p>
+            </header>
+
+            <div v-if="side.onPitch" class="lineup__pitch">
+              <div
+                v-for="player in side.starters"
+                :key="player.id"
+                class="lineup__player"
+                :style="{ left: player.x + '%', top: player.y + '%' }"
+                :title="player.fullName"
+                :aria-label="player.fullName"
+              >
+                <span class="lineup__name">
+                  <span v-if="player.shirt" class="lineup__num">{{ player.shirt }}</span>
+                  <span class="lineup__name-text">
+                    <span v-if="player.firstName" class="lineup__name-line">{{ player.firstName }}</span>
+                    <span v-if="player.lastName" class="lineup__name-line">{{ player.lastName }}</span>
+                  </span>
+                  <span v-if="player.badges.length" class="lineup__badges">
+                    <span
+                      v-for="badge in player.badges"
+                      :key="badge"
+                      class="lineup__badge"
+                      :class="'lineup__badge--' + badge"
+                    ></span>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <ol v-else class="lineup__xi">
+              <li v-for="player in side.starters" :key="player.id">
+                <span class="lineup__shirt lineup__shirt--inline">{{ player.shirt }}</span>
+                <span>{{ player.fullName }}</span>
+              </li>
+            </ol>
+
+            <p v-if="side.coach" class="lineup__coach">Coach · {{ side.coach }}</p>
+
+            <template v-if="side.subs.length">
+              <h4 class="lineup__section">Bench</h4>
+              <ul class="lineup__list">
+                <li v-for="player in side.subs" :key="player.id" class="lineup__row">
+                  <span class="lineup__shirt lineup__shirt--inline">{{ player.shirt }}</span>
+                  <span class="lineup__row-name">
+                    {{ player.name }}
+                    <span v-if="player.role" class="lineup__role">{{ player.role }}</span>
+                  </span>
+                </li>
+              </ul>
+            </template>
+          </section>
+        </div>
+      </article>
+    </script>
+
+    <script type="text/x-template" id="squad-template">
+      <header class="charts-header">
+        <h2>Maccabi Haifa — squad</h2>
+        <p v-if="fetchedAt || playerCount">
+          <span v-if="fetchedAt">Updated {{ fetchedLabel }}</span>
+          <span v-if="fetchedAt && playerCount"> · </span>
+          <span v-if="playerCount">{{ playerCount }} players</span>
+        </p>
+      </header>
+
+      <div v-if="error" class="charts-error">{{ error }}</div>
+      <p v-else-if="loading" class="squad-loading">Loading squad…</p>
+
+      <div v-else class="squad-groups">
+        <div v-for="group in groups" :key="group.key" class="squad-group">
+          <h3 class="squad-group__title">{{ group.title }}</h3>
+          <ul class="squad-grid">
+            <li v-for="player in group.members" :key="player.id" class="squad-card">
+              <div
+                class="squad-card__photo-wrap"
+                :class="{ 'squad-card__photo-wrap--original': player.useOriginalPhoto }"
+              >
+                <img
+                  class="squad-card__photo"
+                  :class="{ 'squad-card__photo--original': player.useOriginalPhoto }"
+                  :src="player.photo"
+                  :alt="player.name"
+                  loading="lazy"
+                  @error="useOriginalPhoto(player, $event)"
+                />
+              </div>
+              <div class="squad-card__body">
+                <p class="squad-card__name">{{ player.name }}</p>
+                <p v-if="player.position" class="squad-card__position">{{ player.position }}</p>
+                <p class="squad-card__meta">
+                  <span v-if="player.country" class="squad-card__country">
+                    <img
+                      v-if="player.countryFlag"
+                      class="squad-card__flag"
+                      :src="player.countryFlag"
+                      :alt="player.country"
+                      loading="lazy"
+                    />
+                    {{ player.country }}
+                  </span>
+                  <span v-if="player.age">{{ player.age }} yrs</span>
+                  <span v-if="player.height">{{ player.height }}</span>
+                  <span v-if="player.transferValue">{{ player.transferValue }}</span>
+                </p>
+                <p v-if="player.injured" class="squad-card__injury">
+                  Injury
+                  <span v-if="player.injury && player.injury.expectedReturn">
+                    — expected back {{ player.injury.expectedReturn }}
+                  </span>
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </script>
+
+    <script src="/shell.js"></script>
+    <script src="/vendor/vue.global.prod.js"></script>
+    <script src="/vendor/chart.umd.min.js"></script>
+    <script src="/vendor/leaflet/leaflet.js"></script>
+    <script src="/vendor/leaflet-heat.js"></script>
+    <script src="/hero.js"></script>
+    <script src="/map.js"></script>
+    <script src="/history-chart.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

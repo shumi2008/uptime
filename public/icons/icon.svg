@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Uptime">
+  <rect width="512" height="512" rx="96" fill="#061216"/>
+  <circle cx="256" cy="256" r="148" fill="none" stroke="#1a9b7a" stroke-width="28"/>
+  <path d="M256 128v128l88 52" fill="none" stroke="#e8f2f0" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

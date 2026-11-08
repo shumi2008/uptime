@@ -1,0 +1,7 @@
+data/*
+!data/haifa-league-positions.json
+!data/last-played-game.json
+node_modules/
+.DS_Store
+.env
+certs/*.pem

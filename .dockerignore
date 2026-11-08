@@ -1,0 +1,12 @@
+node_modules
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+chat-logs
+*.log
+npm-debug.log*
+.DS_Store
+.cursor
+scripts/team-full.json

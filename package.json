@@ -1,0 +1,30 @@
+{
+  "name": "uptime",
+  "version": "1.0.0",
+  "description": "Simple Node.js uptime application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:up": "docker compose up -d timescaledb",
+    "db:down": "docker compose stop timescaledb",
+    "db:logs": "docker compose logs -f timescaledb",
+    "docker:up": "docker compose up -d --build",
+    "docker:deploy": "bash scripts/deploy-docker.sh",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f app"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@12.0.2",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "chart.js": "^4.5.1",
+    "express": "^5.1.0",
+    "leaflet": "^1.9.4",
+    "leaflet.heat": "^0.2.0",
+    "pg": "^8.16.3",
+    "vue": "^3.5.41"
+  }
+}

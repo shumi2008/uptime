@@ -1,0 +1,31 @@
+{
+  "name": "Uptime — Maccabi Haifa",
+  "short_name": "Uptime",
+  "description": "Mac uptime, Maccabi Haifa fixtures, league table, and league map.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#061216",
+  "theme_color": "#061216",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "https://images.fotmob.com/image_resources/logo/teamlogo/10185.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://images.fotmob.com/image_resources/logo/teamlogo/10185.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

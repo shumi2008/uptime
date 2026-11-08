@@ -1,0 +1,246 @@
+{
+  "fallback": {
+    "team-10185": {
+      "tabs": [
+        "overview",
+        "table",
+        "fixtures",
+        "squad",
+        "stats",
+        "transfers",
+        "history"
+      ],
+      "allAvailableSeasons": [],
+      "details": {
+        "id": 10185,
+        "type": "team",
+        "name": "Maccabi Haifa",
+        "latestSeason": "2026/2027",
+        "shortName": "Maccabi Haifa",
+        "country": "ISR",
+        "gender": "male",
+        "faqJSONLD": {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "When is Maccabi Haifa's next match?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Maccabi Haifa's next match is at 18:00 BST on Mon, 17 Aug 2026 against Hapoel Jerusalem FC."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is Maccabi Haifa's stadium?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Maccabi Haifa stadium is located in Haifa and is called Sammy Ofer Stadium."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the capacity of Sammy Ofer Stadium?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The capacity for Sammy Ofer Stadium is 30950."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "When was Sammy Ofer Stadium opened?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sammy Ofer Stadium opened in 2014."
+              }
+            }
+          ]
+        },
+        "sportsTeamJSONLD": {
+          "@context": "https://schema.org",
+          "@type": "SportsTeam",
+          "name": "Maccabi Haifa",
+          "sport": "Football/Soccer",
+          "gender": "https://schema.org/Male",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10185.png",
+          "url": "https://www.fotmob.com/teams/10185/overview/maccabi-haifa",
+          "athlete": [],
+          "location": {
+            "@type": "Place",
+            "name": "Sammy Ofer Stadium",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "Israel",
+              "addressLocality": "Haifa"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "32.783111788",
+              "longitude": "34.965250156"
+            }
+          },
+          "memberOf": {
+            "@type": "SportsOrganization",
+            "name": "Ligat ha'Al",
+            "url": "https://www.fotmob.com/leagues/127/overview/ligat-haal"
+          }
+        },
+        "breadcrumbJSONLD": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.fotmob.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Ligat ha'Al",
+              "item": "https://www.fotmob.com/leagues/127/overview/ligat-haal"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Maccabi Haifa",
+              "item": "https://www.fotmob.com/teams/10185/overview/maccabi-haifa"
+            }
+          ]
+        },
+        "canSyncCalendar": true,
+        "primaryLeagueId": 127,
+        "primaryLeagueName": "Ligat ha'Al",
+        "seopath": "maccabi-haifa"
+      },
+      "seostr": "maccabi-haifa",
+      "QAData": [
+        {
+          "question": "When is Maccabi Haifa's next match?",
+          "answer": "Maccabi Haifa's next match is at 18:00 BST on Mon, 17 Aug 2026 against Hapoel Jerusalem FC."
+        },
+        {
+          "question": "Where is Maccabi Haifa's stadium?",
+          "answer": "Maccabi Haifa stadium is located in Haifa and is called Sammy Ofer Stadium."
+        },
+        {
+          "question": "What is the capacity of Sammy Ofer Stadium?",
+          "answer": "The capacity for Sammy Ofer Stadium is 30950."
+        },
+        {
+          "question": "When was Sammy Ofer Stadium opened?",
+          "answer": "Sammy Ofer Stadium opened in 2014."
+        }
+      ],
+      "table": [
+        {
+          "data": {
+            "ccode": "ISR",
+            "leagueId": 127,
+            "pageUrl": "/leagues/127/overview/ligat-haal",
+            "leagueName": "Ligat ha'Al",
+            "legend": [
+              {
+                "title": "Championship playoff",
+                "tKey": "championship_playoff",
+                "color": "#2AD572",
+                "indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              },
+              {
+                "title": "Relegation qualification",
+                "tKey": "relegationqual",
+                "color": "#FFA72F",
+                "indices": [
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13
+                ]
+              }
+            ],
+            "ongoing": [],
+            "table": {
+              "all": [
+                {
+                  "name": "Beitar Jerusalem",
+                  "shortName": "Beitar Jerusalem",
+                  "id": 8173,
+                  "pageUrl": "/teams/8173/overview/beitar-jerusalem",
+                  "featuredInMatch": false,
+                  "deduction": null,
+                  "ongoing": null,
+                  "played": 0,
+                  "wins": 0,
+                  "draws": 0,
+                  "losses": 0,
+                  "scoresStr": "0-0",
+                  "goalConDiff": 0,
+                  "pts": 0,
+                  "idx": 1,
+                  "qualColor": "#2AD572"
+                },
+                {
+                  "name": "Bnei Sakhnin",
+                  "shortName": "Bnei Sakhnin",
+                  "id": 8718,
+                  "pageUrl": "/teams/8718/overview/bnei-sakhnin",
+                  "featuredInMatch": false,
+                  "deduction": null,
+                  "ongoing": null,
+                  "played": 0,
+                  "wins": 0,
+                  "draws": 0,
+                  "losses": 0,
+                  "scoresStr": "0-0",
+                  "goalConDiff": 0,
+                  "pts": 0,
+                  "idx": 2,
+                  "qualColor": "#2AD572"
+                },
+                {
+                  "name": "Hapoel Beer Sheva",
+                  "shortName": "Hapoel Beer Sheva",
+                  "id": 9754,
+                  "pageUrl": "/teams/9754/overview/hapoel-beer-sheva",
+                  "featuredInMatch": false,
+                  "deduction": null,
+                  "ongoing": null,
+                  "played": 0,
+                  "wins": 0,
+                  "draws": 0,
+                  "losses": 0,
+                  "scoresStr": "0-0",
+                  "goalConDiff": 0,
+                  "pts": 0,
+                  "idx": 3,
+                  "qualColor": "#2AD572"
+                },
+                {
+                  "name": "Hapoel Haifa",
+                  "shortName": "Hapoel Haifa",
+                  "id": 8301,
+                  "pageUrl": "/teams/8301/overview/hapoel-haifa",
+                  "featuredInMatch": false,
+                  "deduction": null,
+                  "ongoing": null,
+                  "played": 0,
+                  "wins": 0,
+                  "draws": 0,
+                  "losses": 0,
+                  "scoresStr": "0-0",
+                  "goalConDiff": 0,
+                  "pts": 0,
+                  "idx

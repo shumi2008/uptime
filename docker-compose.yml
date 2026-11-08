@@ -1,0 +1,45 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: uptime-timescaledb
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: uptime
+      POSTGRES_PASSWORD: uptime
+      POSTGRES_DB: uptime
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uptime -d uptime"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    image: uptime-app:latest
+    build: .
+    container_name: uptime-app
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      DATABASE_URL: postgres://uptime:uptime@timescaledb:5432/uptime
+      PORT: 3000
+      PING_INTERVAL_MS: ${PING_INTERVAL_MS:-60000}
+      LOGIN_USER: ${LOGIN_USER:-admin}
+      LOGIN_PASSWORD: ${LOGIN_PASSWORD:-haifa}
+      TLS_INSECURE: ${TLS_INSECURE:-1}
+      DISPLAY_TZ: ${DISPLAY_TZ:-America/New_York}
+      NODE_EXTRA_CA_CERTS: ${NODE_EXTRA_CA_CERTS:-}
+    volumes:
+      - ./certs:/certs:ro
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+    cap_add:
+      - NET_RAW
+
+volumes:
+  timescaledb_data:

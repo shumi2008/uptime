@@ -1,0 +1,1728 @@
+{
+  "savedAt": "2026-11-07T17:28:09.685Z",
+  "matchId": "1000015315",
+  "fixture": {
+    "id": "1000015315",
+    "home": "Maccabi Haifa",
+    "away": "Maccabi Netanya",
+    "homeLogo": "https://images.fotmob.com/image_resources/logo/teamlogo/10185.png",
+    "awayLogo": "https://images.fotmob.com/image_resources/logo/teamlogo/1832.png",
+    "kickoff": "2026-11-07T15:30:00.000Z",
+    "kickoffLabel": "Sat, Nov 7, 10:30 AM",
+    "competition": "Ligat ha'Al"
+  },
+  "match": {
+    "matchId": "1000015315",
+    "started": true,
+    "ongoing": false,
+    "finished": true,
+    "cancelled": false,
+    "statusLabel": "Full time",
+    "home": "Maccabi Haifa",
+    "away": "Maccabi Netanya",
+    "homeScore": 0,
+    "awayScore": 4,
+    "goals": [
+      {
+        "id": "89-973767",
+        "minute": "89′",
+        "player": "Eylon Almog",
+        "detail": "0 – 4 · assist by Matheus Davó",
+        "isHome": false
+      },
+      {
+        "id": "87-1235037",
+        "minute": "87′",
+        "player": "Nadav Aviv Nidam",
+        "detail": "0 – 3 · assist by Matheus Davó",
+        "isHome": false
+      },
+      {
+        "id": "71-1227886",
+        "minute": "71′",
+        "player": "Oz Bilu",
+        "detail": "0 – 2 · assist by Samu",
+        "isHome": false
+      },
+      {
+        "id": "48-623728",
+        "minute": "48′",
+        "player": "Andrija Novakovich",
+        "detail": "0 – 1 · Own goal",
+        "isHome": false
+      }
+    ],
+    "events": [
+      {
+        "id": "06Card451209undefinedtrue",
+        "minute": "6′",
+        "isHome": true,
+        "marker": false,
+        "type": "card-yellow",
+        "label": "Yellow card",
+        "player": "Eliazer Dasa",
+        "detail": "Foul"
+      },
+      {
+        "id": "017Card542470undefinedfalse",
+        "minute": "17′",
+        "isHome": false,
+        "marker": false,
+        "type": "card-yellow",
+        "label": "Yellow card",
+        "player": "Grigori Morozov",
+        "detail": "Foul"
+      },
+      {
+        "id": "undefined45AddedTimeNaNundefinedundefined",
+        "minute": "",
+        "isHome": null,
+        "marker": true,
+        "type": "added",
+        "label": "+ 1 minute added",
+        "player": "",
+        "detail": ""
+      },
+      {
+        "id": "undefined45HalfNaNundefinedundefined",
+        "minute": "",
+        "isHome": null,
+        "marker": true,
+        "type": "half",
+        "label": "Half time",
+        "player": "",
+        "detail": "0 – 0"
+      },
+      {
+        "id": "048Goal623728undefinedfalse",
+        "minute": "48′",
+        "isHome": false,
+        "marker": false,
+        "type": "goal",
+        "label": "Own goal",
+        "player": "Andrija Novakovich",
+        "detail": "0 – 1"
+      },
+      {
+        "id": "undefined65SubstitutionNaN1561580true",
+        "minute": "65′",
+        "isHome": true,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Yair Mordechai",
+        "detail": "on for Navot Ratner"
+      },
+      {
+        "id": "undefined66SubstitutionNaN423058false",
+        "minute": "66′",
+        "isHome": false,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Wylan Cyprien",
+        "detail": "on for Maor Levi"
+      },
+      {
+        "id": "071Goal1227886undefinedfalse",
+        "minute": "71′",
+        "isHome": false,
+        "marker": false,
+        "type": "goal",
+        "label": "Goal",
+        "player": "Oz Bilu",
+        "detail": "0 – 2 · assist by Samu"
+      },
+      {
+        "id": "undefined73SubstitutionNaN1135673false",
+        "minute": "73′",
+        "isHome": false,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Karem Jaber",
+        "detail": "on for Grigori Morozov"
+      },
+      {
+        "id": "undefined73SubstitutionNaN1235037false",
+        "minute": "73′",
+        "isHome": false,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Nadav Aviv Nidam",
+        "detail": "on for Gabriel Simion"
+      },
+      {
+        "id": "undefined76SubstitutionNaN833591true",
+        "minute": "76′",
+        "isHome": true,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Ali Mohamed",
+        "detail": "on for Yarin Levi"
+      },
+      {
+        "id": "undefined77SubstitutionNaN1699275true",
+        "minute": "77′",
+        "isHome": true,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Iyad Khalaili",
+        "detail": "on for Kenneth Saief"
+      },
+      {
+        "id": "undefined77SubstitutionNaN1838874true",
+        "minute": "77′",
+        "isHome": true,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Adam Grimberg",
+        "detail": "on for Kenji Gorré"
+      },
+      {
+        "id": "undefined77SubstitutionNaN973767false",
+        "minute": "77′",
+        "isHome": false,
+        "marker": false,
+        "type": "sub",
+        "label": "Substitution",
+        "player": "Eylon Almog",
+        "detail": "on for Oz Bilu · Injury"
+      },
+      {
+        "id": "085Card423058undefinedfalse",
+        "minute": "85′",
+        "isHome": false,
+        "marker": false,
+        "type": "card-yellow",
+        "label": "Yellow card",
+        "player": "Wylan Cyprien",
+        "detail": "Time wasting"
+      },
+      {
+        "id": "087Goal1235037undefinedfalse",
+        "minute": "87′",
+        "isHome": false,
+        "marker": false,
+        "type": "goal",
+        "label": "Goal",
+        "player": "Nadav Aviv Nidam",
+        "detail": "0 – 3 · assist by Matheus Davó"
+      },
+      {
+        "id": "089Goal973767undefinedfalse",
+        "minute": "89′",
+        "isHome": false,
+        "marker": false,
+        "type": "goal",
+        "label": "Goal",
+        "player": "Eylon Almog",
+        "detail": "0 – 4 · assist by Matheus Davó"
+      },
+      {
+        "id": "undefined90AddedTimeNaNundefinedundefined",
+        "minute": "",
+        "isHome": null,
+        "marker": true,
+        "type": "added",
+        "label": "+ 2 minutes added",
+        "player": "",
+        "detail": ""
+      },
+      {
+        "id": "undefined90HalfNaNundefinedundefined",
+        "minute": "",
+        "isHome": null,
+        "marker": true,
+        "type": "half",
+        "label": "Full time",
+        "player": "",
+        "detail": "0 – 4"
+      }
+    ],
+    "stats": [
+      {
+        "key": "BallPossesion",
+        "title": "Ball possession",
+        "home": "60%",
+        "away": "40%",
+        "homeShare": 60,
+        "highlighted": "home"
+      },
+      {
+        "key": "total_shots",
+        "title": "Total shots",
+        "home": "21",
+        "away": "9",
+        "homeShare": null,
+        "highlighted": "home"
+      },
+      {
+        "key": "touches_opp_box",
+        "title": "Touches in opposition box",
+        "home": "34",
+        "away": "21",
+        "homeShare": null,
+        "highlighted": "home"
+      },
+      {
+        "key": "ShotsOnTarget",
+        "title": "Shots on target",
+        "home": "6",
+        "away": "5",
+        "homeShare": null,
+        "highlighted": "home"
+      }
+    ],
+    "statPeriods": [
+      {
+        "key": "All",
+        "label": "All",
+        "groups": [
+          {
+            "key": "top_stats",
+            "title": "Top stats",
+            "stats": [
+              {
+                "key": "BallPossesion",
+                "title": "Ball possession",
+                "home": "60%",
+                "away": "40%",
+                "homeShare": 60,
+                "highlighted": "home"
+              },
+              {
+                "key": "total_shots",
+                "title": "Total shots",
+                "home": "21",
+                "away": "9",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOnTarget",
+                "title": "Shots on target",
+                "home": "6",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "touches_opp_box",
+                "title": "Touches in opposition box",
+                "home": "34",
+                "away": "21",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "big_chance",
+                "title": "Big chances",
+                "home": "0",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "big_chance_missed_title",
+                "title": "Big chances missed",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "accurate_passes",
+                "title": "Accurate passes",
+                "home": "442 (87%)",
+                "away": "281 (81%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "yellow_cards",
+                "title": "Yellow cards",
+                "home": "1",
+                "away": "2",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "corners",
+                "title": "Corners",
+                "home": "11",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "shots",
+            "title": "Shots",
+            "stats": [
+              {
+                "key": "total_shots",
+                "title": "Total shots",
+                "home": "21",
+                "away": "9",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOffTarget",
+                "title": "Shots off target",
+                "home": "8",
+                "away": "3",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOnTarget",
+                "title": "Shots on target",
+                "home": "6",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "blocked_shots",
+                "title": "Blocked shots",
+                "home": "7",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "shots_woodwork",
+                "title": "Hit woodwork",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "shots_inside_box",
+                "title": "Shots inside box",
+                "home": "9",
+                "away": "7",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "shots_outside_box",
+                "title": "Shots outside box",
+                "home": "12",
+                "away": "2",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "passes",
+            "title": "Passes",
+            "stats": [
+              {
+                "key": "passes",
+                "title": "Passes",
+                "home": "506",
+                "away": "347",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "accurate_passes",
+                "title": "Accurate passes",
+                "home": "442 (87%)",
+                "away": "281 (81%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "own_half_passes",
+                "title": "Own half",
+                "home": "186",
+                "away": "170",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "opposition_half_passes",
+                "title": "Opposition half",
+                "home": "256",
+                "away": "111",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "long_balls_accurate",
+                "title": "Accurate long balls",
+                "home": "15 (56%)",
+                "away": "20 (53%)",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "accurate_crosses",
+                "title": "Accurate crosses",
+                "home": "4 (17%)",
+                "away": "1 (10%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "player_throws",
+                "title": "Throws",
+                "home": "14",
+                "away": "12",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "touches_opp_box",
+                "title": "Touches in opposition box",
+                "home": "34",
+                "away": "21",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "Offsides",
+                "title": "Offsides",
+                "home": "1",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": "away"
+              }
+            ]
+          },
+          {
+            "key": "defense",
+            "title": "Defence",
+            "stats": [
+              {
+                "key": "matchstats.headers.tackles",
+                "title": "Tackles",
+                "home": "17",
+                "away": "11",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "interceptions",
+                "title": "Interceptions",
+                "home": "9",
+                "away": "9",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "shot_blocks",
+                "title": "Blocks",
+                "home": "1",
+                "away": "7",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "clearances",
+                "title": "Clearances",
+                "home": "15",
+                "away": "27",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "keeper_saves",
+                "title": "Keeper saves",
+                "home": "2",
+                "away": "6",
+                "homeShare": null,
+                "highlighted": "away"
+              }
+            ]
+          },
+          {
+            "key": "duels",
+            "title": "Duels",
+            "stats": [
+              {
+                "key": "duel_won",
+                "title": "Duels won",
+                "home": "47",
+                "away": "30",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ground_duels_won",
+                "title": "Ground duels won",
+                "home": "41 (64%)",
+                "away": "23 (36%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "aerials_won",
+                "title": "Aerial duels won",
+                "home": "6 (46%)",
+                "away": "7 (54%)",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "dribbles_succeeded",
+                "title": "Successful dribbles",
+                "home": "8 (57%)",
+                "away": "4 (31%)",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "discipline",
+            "title": "Discipline",
+            "stats": [
+              {
+                "key": "yellow_cards",
+                "title": "Yellow cards",
+                "home": "1",
+                "away": "2",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "red_cards",
+                "title": "Red cards",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "fouls",
+                "title": "Fouls committed",
+                "home": "12",
+                "away": "16",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "FirstHalf",
+        "label": "1st half",
+        "groups": [
+          {
+            "key": "top_stats",
+            "title": "Top stats",
+            "stats": [
+              {
+                "key": "BallPossesion",
+                "title": "Ball possession",
+                "home": "54%",
+                "away": "46%",
+                "homeShare": 54,
+                "highlighted": "home"
+              },
+              {
+                "key": "total_shots",
+                "title": "Total shots",
+                "home": "8",
+                "away": "3",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOnTarget",
+                "title": "Shots on target",
+                "home": "1",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "touches_opp_box",
+                "title": "Touches in opposition box",
+                "home": "17",
+                "away": "9",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "big_chance",
+                "title": "Big chances",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "big_chance_missed_title",
+                "title": "Big chances missed",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "accurate_passes",
+                "title": "Accurate passes",
+                "home": "225 (86%)",
+                "away": "189 (85%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "yellow_cards",
+                "title": "Yellow cards",
+                "home": "1",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "corners",
+                "title": "Corners",
+                "home": "5",
+                "away": "4",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "shots",
+            "title": "Shots",
+            "stats": [
+              {
+                "key": "total_shots",
+                "title": "Total shots",
+                "home": "8",
+                "away": "3",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOffTarget",
+                "title": "Shots off target",
+                "home": "3",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOnTarget",
+                "title": "Shots on target",
+                "home": "1",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "blocked_shots",
+                "title": "Blocked shots",
+                "home": "4",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "shots_woodwork",
+                "title": "Hit woodwork",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "shots_inside_box",
+                "title": "Shots inside box",
+                "home": "3",
+                "away": "2",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "shots_outside_box",
+                "title": "Shots outside box",
+                "home": "5",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "passes",
+            "title": "Passes",
+            "stats": [
+              {
+                "key": "passes",
+                "title": "Passes",
+                "home": "262",
+                "away": "222",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "accurate_passes",
+                "title": "Accurate passes",
+                "home": "225 (86%)",
+                "away": "189 (85%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "own_half_passes",
+                "title": "Own half",
+                "home": "92",
+                "away": "118",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "opposition_half_passes",
+                "title": "Opposition half",
+                "home": "133",
+                "away": "71",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "long_balls_accurate",
+                "title": "Accurate long balls",
+                "home": "5 (45%)",
+                "away": "11 (58%)",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "accurate_crosses",
+                "title": "Accurate crosses",
+                "home": "3 (33%)",
+                "away": "0 (0%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "player_throws",
+                "title": "Throws",
+                "home": "6",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "touches_opp_box",
+                "title": "Touches in opposition box",
+                "home": "17",
+                "away": "9",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "Offsides",
+                "title": "Offsides",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              }
+            ]
+          },
+          {
+            "key": "defense",
+            "title": "Defence",
+            "stats": [
+              {
+                "key": "matchstats.headers.tackles",
+                "title": "Tackles",
+                "home": "8",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "interceptions",
+                "title": "Interceptions",
+                "home": "5",
+                "away": "6",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "shot_blocks",
+                "title": "Blocks",
+                "home": "1",
+                "away": "4",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "clearances",
+                "title": "Clearances",
+                "home": "7",
+                "away": "12",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "keeper_saves",
+                "title": "Keeper saves",
+                "home": "1",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": ""
+              }
+            ]
+          },
+          {
+            "key": "duels",
+            "title": "Duels",
+            "stats": [
+              {
+                "key": "duel_won",
+                "title": "Duels won",
+                "home": "30",
+                "away": "15",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ground_duels_won",
+                "title": "Ground duels won",
+                "home": "25 (69%)",
+                "away": "11 (31%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "aerials_won",
+                "title": "Aerial duels won",
+                "home": "5 (56%)",
+                "away": "4 (44%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "dribbles_succeeded",
+                "title": "Successful dribbles",
+                "home": "6 (75%)",
+                "away": "1 (25%)",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "discipline",
+            "title": "Discipline",
+            "stats": [
+              {
+                "key": "yellow_cards",
+                "title": "Yellow cards",
+                "home": "1",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "red_cards",
+                "title": "Red cards",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "fouls",
+                "title": "Fouls committed",
+                "home": "7",
+                "away": "11",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "SecondHalf",
+        "label": "2nd half",
+        "groups": [
+          {
+            "key": "top_stats",
+            "title": "Top stats",
+            "stats": [
+              {
+                "key": "BallPossesion",
+                "title": "Ball possession",
+                "home": "67%",
+                "away": "33%",
+                "homeShare": 67,
+                "highlighted": "home"
+              },
+              {
+                "key": "total_shots",
+                "title": "Total shots",
+                "home": "13",
+                "away": "6",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOnTarget",
+                "title": "Shots on target",
+                "home": "5",
+                "away": "4",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "touches_opp_box",
+                "title": "Touches in opposition box",
+                "home": "17",
+                "away": "12",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "big_chance",
+                "title": "Big chances",
+                "home": "0",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "big_chance_missed_title",
+                "title": "Big chances missed",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "accurate_passes",
+                "title": "Accurate passes",
+                "home": "217 (89%)",
+                "away": "92 (74%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "yellow_cards",
+                "title": "Yellow cards",
+                "home": "0",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "corners",
+                "title": "Corners",
+                "home": "6",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "shots",
+            "title": "Shots",
+            "stats": [
+              {
+                "key": "total_shots",
+                "title": "Total shots",
+                "home": "13",
+                "away": "6",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOffTarget",
+                "title": "Shots off target",
+                "home": "5",
+                "away": "2",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ShotsOnTarget",
+                "title": "Shots on target",
+                "home": "5",
+                "away": "4",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "blocked_shots",
+                "title": "Blocked shots",
+                "home": "3",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "shots_woodwork",
+                "title": "Hit woodwork",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "shots_inside_box",
+                "title": "Shots inside box",
+                "home": "6",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "shots_outside_box",
+                "title": "Shots outside box",
+                "home": "7",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              }
+            ]
+          },
+          {
+            "key": "passes",
+            "title": "Passes",
+            "stats": [
+              {
+                "key": "passes",
+                "title": "Passes",
+                "home": "244",
+                "away": "125",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "accurate_passes",
+                "title": "Accurate passes",
+                "home": "217 (89%)",
+                "away": "92 (74%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "own_half_passes",
+                "title": "Own half",
+                "home": "94",
+                "away": "52",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "opposition_half_passes",
+                "title": "Opposition half",
+                "home": "123",
+                "away": "40",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "long_balls_accurate",
+                "title": "Accurate long balls",
+                "home": "10 (63%)",
+                "away": "9 (47%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "accurate_crosses",
+                "title": "Accurate crosses",
+                "home": "1 (7%)",
+                "away": "1 (25%)",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "player_throws",
+                "title": "Throws",
+                "home": "8",
+                "away": "7",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "touches_opp_box",
+                "title": "Touches in opposition box",
+                "home": "17",
+                "away": "12",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "Offsides",
+                "title": "Offsides",
+                "home": "1",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": "away"
+              }
+            ]
+          },
+          {
+            "key": "defense",
+            "title": "Defence",
+            "stats": [
+              {
+                "key": "matchstats.headers.tackles",
+                "title": "Tackles",
+                "home": "9",
+                "away": "6",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "interceptions",
+                "title": "Interceptions",
+                "home": "4",
+                "away": "3",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "shot_blocks",
+                "title": "Blocks",
+                "home": "0",
+                "away": "3",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "clearances",
+                "title": "Clearances",
+                "home": "8",
+                "away": "15",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "keeper_saves",
+                "title": "Keeper saves",
+                "home": "1",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": "away"
+              }
+            ]
+          },
+          {
+            "key": "duels",
+            "title": "Duels",
+            "stats": [
+              {
+                "key": "duel_won",
+                "title": "Duels won",
+                "home": "17",
+                "away": "15",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "ground_duels_won",
+                "title": "Ground duels won",
+                "home": "16 (57%)",
+                "away": "12 (43%)",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "aerials_won",
+                "title": "Aerial duels won",
+                "home": "1 (25%)",
+                "away": "3 (75%)",
+                "homeShare": null,
+                "highlighted": "away"
+              },
+              {
+                "key": "dribbles_succeeded",
+                "title": "Successful dribbles",
+                "home": "2 (33%)",
+                "away": "3 (33%)",
+                "homeShare": null,
+                "highlighted": "away"
+              }
+            ]
+          },
+          {
+            "key": "discipline",
+            "title": "Discipline",
+            "stats": [
+              {
+                "key": "yellow_cards",
+                "title": "Yellow cards",
+                "home": "0",
+                "away": "1",
+                "homeShare": null,
+                "highlighted": "home"
+              },
+              {
+                "key": "red_cards",
+                "title": "Red cards",
+                "home": "0",
+                "away": "0",
+                "homeShare": null,
+                "highlighted": ""
+              },
+              {
+                "key": "fouls",
+                "title": "Fouls committed",
+                "home": "5",
+                "away": "5",
+                "homeShare": null,
+                "highlighted": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "lineup": {
+      "home": {
+        "id": "10185",
+        "name": "Maccabi Haifa",
+        "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10185.png",
+        "formation": "3-2-4-1",
+        "coach": "Barak Bakhar",
+        "onPitch": true,
+        "starters": [
+          {
+            "id": "766812",
+            "name": "Omri Glazer",
+            "firstName": "Omri",
+            "lastName": "Glazer",
+            "fullName": "Omri Glazer",
+            "shirt": "55",
+            "badges": [],
+            "x": 50,
+            "y": 10
+          },
+          {
+            "id": "451209",
+            "name": "Eliazer Dasa",
+            "firstName": "Eliazer",
+            "lastName": "Dasa",
+            "fullName": "Eliazer Dasa",
+            "shirt": "2",
+            "badges": [
+              "yellow"
+            ],
+            "x": 21,
+            "y": 29.2
+          },
+          {
+            "id": "1189622",
+            "name": "Nigel Lonwijk",
+            "firstName": "Nigel",
+            "lastName": "Lonwijk",
+            "fullName": "Nigel Lonwijk",
+            "shirt": "21",
+            "badges": [],
+            "x": 50,
+            "y": 29.2
+          },
+          {
+            "id": "1031316",
+            "name": "Tsunami",
+            "firstName": "",
+            "lastName": "Tsunami",
+            "fullName": "Tsunami",
+            "shirt": "66",
+            "badges": [],
+            "x": 79,
+            "y": 29.2
+          },
+          {
+            "id": "1612237",
+            "name": "Yarin Levi",
+            "firstName": "Yarin",
+            "lastName": "Levi",
+            "fullName": "Yarin Levi",
+            "shirt": "8",
+            "badges": [],
+            "x": 30,
+            "y": 48.5
+          },
+          {
+            "id": "577045",
+            "name": "Kenneth Saief",
+            "firstName": "Kenneth",
+            "lastName": "Saief",
+            "fullName": "Kenneth Saief",
+            "shirt": "16",
+            "badges": [],
+            "x": 70,
+            "y": 48.5
+          },
+          {
+            "id": "1042074",
+            "name": "Pedro Brazão",
+            "firstName": "Pedro",
+            "lastName": "Brazão",
+            "fullName": "Pedro Brazão",
+            "shirt": "30",
+            "badges": [],
+            "x": 16,
+            "y": 67.80000000000001
+          },
+          {
+            "id": "1838844",
+            "name": "Navot Ratner",
+            "firstName": "Navot",
+            "lastName": "Ratner",
+            "fullName": "Navot Ratner",
+            "shirt": "36",
+            "badges": [],
+            "x": 37.5,
+            "y": 67.80000000000001
+          },
+          {
+            "id": "921037",
+            "name": "Bruninho",
+            "firstName": "",
+            "lastName": "Bruninho",
+            "fullName": "Bruninho",
+            "shirt": "10",
+            "badges": [],
+            "x": 62.5,
+            "y": 67.80000000000001
+          },
+          {
+            "id": "643232",
+            "name": "Kenji Gorré",
+            "firstName": "Kenji",
+            "lastName": "Gorré",
+            "fullName": "Kenji Gorré",
+            "shirt": "11",
+            "badges": [],
+            "x": 84,
+            "y": 67.80000000000001
+          },
+          {
+            "id": "623728",
+            "name": "Andrija Novakovich",
+            "firstName": "Andrija",
+            "lastName": "Novakovich",
+            "fullName": "Andrija Novakovich",
+            "shirt": "9",
+            "badges": [
+              "goal"
+            ],
+            "x": 50,
+            "y": 87
+          }
+        ],
+        "subs": [
+          {
+            "id": "1561580",
+            "name": "Yair Mordechai",
+            "shirt": "7",
+            "role": "Midfielder"
+          },
+          {
+            "id": "833591",
+            "name": "Ali Mohamed",
+            "shirt": "4",
+            "role": "Midfielder"
+          },
+          {
+            "id": "1699275",
+            "name": "Iyad Khalaili",
+            "shirt": "29",
+            "role": "Midfielder"
+          },
+          {
+            "id": "1838874",
+            "name": "Adam Grimberg",
+            "shirt": "38",
+            "role": "Attacker"
+          },
+          {
+            "id": "1517864",
+            "name": "Omer Yaacov Nir On",
+            "shirt": "1",
+            "role": "Keeper"
+          },
+          {
+            "id": "940134",
+            "name": "Pedrão",
+            "shirt": "44",
+            "role": "Defender"
+          },
+          {
+            "id": "1838812",
+            "name": "Noam Sztejfman",
+            "shirt": "35",
+            "role": "Defender"
+          },
+          {
+            "id": "862634",
+            "name": "Jelle Bataille",
+            "shirt": "25",
+            "role": "Defender"
+          },
+          {
+            "id": "1157214",
+            "name": "Silva Kani",
+            "shirt": "26",
+            "role": "Midfielder"
+          }
+        ],
+        "unavailable": [
+          {
+            "id": "1319182",
+            "name": "Ethane Azoulay",
+            "shirt": "",
+            "reason": "Suspended · Early November 2026"
+          },
+          {
+            "id": "656556",
+            "name": "Sean Goldberg",
+            "shirt": "",
+            "reason": "Injured · About 1-2 weeks"
+          },
+          {
+            "id": "623860",
+            "name": "Guy Melamed",
+            "shirt": "",
+            "reason": "Injured · Mid February 2027"
+          },
+          {
+            "id": "614161",
+            "name": "Dolev Haziza",
+            "shirt": "",
+            "reason": "Injured · About 1-2 weeks"
+          },
+          {
+            "id": "1050156",
+            "name": "Pierre Cornud",
+            "shirt": "",
+            "reason": "Injured · Early January 2027"
+          }
+        ]
+      },
+      "away": {
+        "id": "1832",
+        "name": "Maccabi Netanya",
+        "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1832.png",
+        "formation": "4-2-3-1",
+        "coach": "Ronny Levi",
+        "onPitch": true,
+        "starters": [
+          {
+            "id": "1083225",
+            "name": "Samu",
+            "firstName": "",
+            "lastName": "Samu",
+            "fullName": "Samu",
+            "shirt": "22",
+            "badges": [],
+            "x": 50,
+            "y": 10
+          },
+          {
+            "id": "1244231",
+            "name": "Alon Azugi",
+            "firstName": "Alon",
+            "lastName": "Azugi",
+            "fullName": "Alon Azugi",
+            "shirt": "12",
+            "badges": [],
+            "x": 16,
+            "y": 29.2
+          },
+          {
+            "id": "854293",
+            "name": "Olivier Verdon",
+            "firstName": "Olivier",
+            "lastName": "Verdon",
+            "fullName": "Olivier Verdon",
+            "shirt": "23",
+            "badges": [],
+            "x": 37.5,
+            "y": 29.2
+          },
+          {
+            "id": "1792971",
+            "name": "Benny Feldman",
+            "firstName": "Benny",
+            "lastName": "Feldman",
+            "fullName": "Benny Feldman",
+            "shirt": "44",
+            "badges": [],
+            "x": 62.5,
+            "y": 29.2
+          },
+          {
+            "id": "542470",
+            "name": "Grigori Morozov",
+            "firstName": "Grigori",
+            "lastName": "Morozov",
+            "fullName": "Grigori Morozov",
+            "shirt": "2",
+            "badges": [
+              "yellow"
+            ],
+            "x": 84,
+            "y": 29.2
+          },
+          {
+            "id": "1242913",
+            "name": "Aziz Mohammed",
+            "firstName": "Aziz",
+            "lastName": "Mohammed",
+            "fullName": "Aziz Mohammed",
+            "shirt": "32",
+            "badges": [],
+            "x": 30,
+            "y": 48.5
+          },
+          {
+            "id": "769855",
+            "name": "Gabriel Simion",
+            "firstName": "Gabriel",
+            "lastName": "Simion",
+            "fullName": "Gabriel Simion",
+            "shirt": "98",
+            "badges": [],
+            "x": 70,
+            "y": 48.5
+          },
+          {
+            "id": "1227886",
+            "name": "Oz Bilu",
+            "firstName": "Oz",
+            "lastName": "Bilu",
+            "fullName": "Oz Bilu",
+            "shirt": "10",
+            "badges": [
+              "goal"
+            ],
+            "x": 16.2,
+            "y": 67.80000000000001
+          },
+          {
+            "id": "1269253",
+            "name": "Maor Levi",
+            "firstName": "Maor",
+            "lastName": "Levi",
+            "fullName": "Maor Levi",
+            "shirt": "15",
+            "badges": [],
+            "x": 50,
+            "y": 67.80000000000001
+          },
+          {
+            "id": "1347371",
+            "name": "Basam Zaarura",
+            "firstName": "Basam",
+            "lastName": "Zaarura",
+            "fullName": "Basam Zaarura",
+            "shirt": "16",
+            "badges": [],
+            "x": 83.7,
+            "y": 67.80000000000001
+          },
+          {
+            "id": "1082894",
+            "name": "Matheus Davó",
+            "firstName": "Matheus",
+            "lastName": "Davó",
+            "fullName": "Matheus Davó",
+            "shirt": "83",
+            "badges": [],
+            "x": 50,
+            "y": 87
+          }
+        ],
+        "subs": [
+          {
+            "id": "423058",
+            "name": "Wylan Cyprien",
+            "shirt": "25",
+            "role": "Midfielder"
+          },
+          {
+            "id": "1135673",
+            "name": "Karem Jaber",
+            "shirt": "26",
+            "role": "Defender"
+          },
+          {
+            "id": "1235037",
+            "name": "Nadav Aviv Nidam",
+            "shirt": "13",
+            "role": "Midfielder"
+          },
+          {
+            "id": "973767",
+            "name": "Eylon Almog",
+            "shirt": "9",
+            "role": "Attacker"
+          },
+          {
+            "id": "792415",
+            "name": "Niv Antman",
+            "shirt": "1",
+            "role": "Keeper"
+          },
+          {
+            "id": "1522846",
+            "name": "Bakary Konaté",
+            "shirt": "6",
+            "role": "Defender"
+          },
+          {
+            "id": "1966057",
+            "name": "Alex Talpa",
+            "shirt": "21",
+            "role": "Midfielder"
+          },
+          {
+            "id": "612209",
+            "name": "Dor Hugy",
+            "shirt": "11",
+            "role": "Attacker"
+          },
+          {
+            "id": "Yarin Abuhatzera",
+            "name": "Yarin Abuhatzera",
+            "shirt": "17",
+            "role": "Attacker"
+          }
+        ],
+        "unavailable": [
+          {
+            "id": "1463337",
+            "name": "Isaac",
+            "shirt": "",
+            "reason": "Suspended · Early November 2026"
+          },
+          {
+            "id": "1116808",
+            "name": "Naftali Balay",
+            "shirt": "",
+            "reason": "Injured"
+          }
+        ]
+      }
+    }
+  }
+}
