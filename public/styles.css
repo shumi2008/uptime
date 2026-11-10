@@ -3564,3 +3564,116 @@ body.is-app-shell:has(.hero--login),
 .team-switch--mobile .team-switch__btn {
   padding: 3px;
 }
+
+/* Logo centered above the team switcher */
+.account-brand .account-brand__logo,
+.mobile-chrome__brand .account-brand__logo {
+  align-self: center;
+}
+
+.account-brand .team-switch,
+.mobile-chrome__brand .team-switch {
+  align-self: center;
+}
+
+/* AEK Athens: black-to-yellow main page background (yellow matches the club logo) */
+:root[data-team="aek-athens"] .hero__atmosphere {
+  background: linear-gradient(180deg, #000 0%, #1a1500 30%, #8f7000 65%, #ffd100 100%);
+  animation: none;
+}
+
+/* AEK Athens: black menu text */
+:root[data-team="aek-athens"] .cta__primary {
+  background: rgba(255, 255, 255, 0.55);
+  color: #000;
+}
+
+:root[data-team="aek-athens"] .cta__primary:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+:root[data-team="aek-athens"] .cta__secondary {
+  color: #000;
+  border-bottom-color: rgba(0, 0, 0, 0.55);
+}
+
+:root[data-team="aek-athens"] .cta__secondary:hover {
+  color: #000;
+  border-bottom-color: #000;
+}
+
+/* AEK Athens: light yellow content sections */
+:root[data-team="aek-athens"] {
+  --signal: #b88a00;
+  --signal-deep: #8a6700;
+  --muted: #6b5a1c;
+}
+
+:root[data-team="aek-athens"] .fixtures-section,
+:root[data-team="aek-athens"] .charts-section,
+:root[data-team="aek-athens"] .squad-section,
+:root[data-team="aek-athens"] .league-table-section {
+  background: linear-gradient(180deg, #fff8d6, #fdeea0 55%, #fff8d6);
+  color: var(--ink);
+}
+
+:root[data-team="aek-athens"] .team-switch {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 209, 0, 0.35);
+}
+
+:root[data-team="aek-athens"] .charts-section--latency {
+  background: linear-gradient(180deg, #fdeea0, #fff8d6 40%, #fdf1b0);
+}
+
+:root[data-team="aek-athens"] .fixtures-section .charts-header h2,
+:root[data-team="aek-athens"] .league-table-section .charts-header h2 {
+  color: var(--ink);
+}
+
+:root[data-team="aek-athens"] .fixtures-section .charts-header p,
+:root[data-team="aek-athens"] .league-table-section .charts-header p,
+:root[data-team="aek-athens"] .fixtures-loading {
+  color: var(--muted);
+}
+
+/* AEK: keep the match cards dark so their light text stays readable on yellow */
+:root[data-team="aek-athens"] .next-match {
+  background: linear-gradient(135deg, #8a6c00 0%, #5e4a00 50%, #3a2d00 100%);
+  border-color: rgba(255, 209, 0, 0.5);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.28), 0 0 40px rgba(255, 209, 0, 0.18);
+}
+
+:root[data-team="aek-athens"] .next-match,
+:root[data-team="aek-athens"] .fixture-card {
+  color: var(--paper);
+}
+
+:root[data-team="aek-athens"] .fixture-card {
+  background: linear-gradient(135deg, #7a6000 0%, #54420a 55%, #3a2d00 100%);
+  border-color: rgba(255, 209, 0, 0.45);
+}
+
+:root[data-team="aek-athens"] .fixtures-split,
+:root[data-team="aek-athens"] .fixtures-split__toggle {
+  color: var(--ink);
+}
+
+:root[data-team="aek-athens"] .fixtures-split::before,
+:root[data-team="aek-athens"] .fixtures-split::after {
+  background: rgba(12, 26, 31, 0.3);
+}
+
+:root[data-team="aek-athens"] .league-table__row--highlight {
+  background: rgba(255, 209, 0, 0.3);
+}
+
+:root[data-team="aek-athens"] .next-match__label {
+  color: #ffd100;
+}
+
+:root[data-team="aek-athens"] .map-action-btn:hover:not(:disabled),
+:root[data-team="aek-athens"] .map-action-btn--active:hover:not(:disabled),
+:root[data-team="aek-athens"] .map-action-btn--secondary.map-action-btn--active:hover:not(:disabled) {
+  background: #ffd100;
+}

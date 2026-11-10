@@ -12,12 +12,25 @@ const HEATMAP_OPTIONS = {
   minOpacity: 0.35,
 };
 
-const HEAT_GRADIENT = {
-  0.0: "#0c1a1f",
-  0.35: "#0d6b52",
-  0.7: "#1a9b7a",
-  1.0: "#22b890",
-};
+const IS_AEK = CURRENT_TEAM.slug === "aek-athens";
+
+const HEAT_GRADIENT = IS_AEK
+  ? {
+      0.0: "#1a1500",
+      0.35: "#8a6c00",
+      0.7: "#e0b400",
+      1.0: "#ffd100",
+    }
+  : {
+      0.0: "#0c1a1f",
+      0.35: "#0d6b52",
+      0.7: "#1a9b7a",
+      1.0: "#22b890",
+    };
+
+const CITY_MARKER_STYLE = IS_AEK
+  ? { color: "#ffd100", fillColor: "#e0b400" }
+  : { color: "#22b890", fillColor: "#1a9b7a" };
 
 const DARK_BASEMAP = {
   url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
@@ -210,9 +223,9 @@ function addCityMarkers(map, cities) {
   cityMarkers = cities.map((city) =>
     L.circleMarker([city.lat, city.lng], {
       radius: 5,
-      color: "#22b890",
+      color: CITY_MARKER_STYLE.color,
       weight: 1,
-      fillColor: "#1a9b7a",
+      fillColor: CITY_MARKER_STYLE.fillColor,
       fillOpacity: 0.85,
     })
       .bindPopup(formatCityPopup(city))

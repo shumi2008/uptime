@@ -57,14 +57,18 @@
 
   function switchTeam(slug) {
     if (!TEAMS[slug] || slug === current.slug) return;
+    let persisted = false;
     try {
       localStorage.setItem(STORAGE_KEY, slug);
+      persisted = localStorage.getItem(STORAGE_KEY) === slug;
     } catch {
-      // ignore
+      persisted = false;
     }
     const url = new URL(window.location.href);
-    url.searchParams.delete("team");
-    window.location.href = url.toString();
+    // When storage is blocked (private mode, some PWAs) carry the choice in the URL.
+    if (persisted) url.searchParams.delete("team");
+    else url.searchParams.set("team", slug);
+    window.location.assign(url.toString());
   }
   window.switchTeam = switchTeam;
 
