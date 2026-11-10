@@ -1,12 +1,15 @@
-const TEAM_ID = 10185;
-const TEAM_NAME = "Maccabi Haifa";
-const FOTMOB_SQUAD_PAGE =
-  "https://www.fotmob.com/teams/10185/squad/maccabi-haifa";
+const { getTeam } = require("./teams");
 
 const { httpsFetch } = require("./lib/https-fetch");
 
 const CACHE_MS = 15 * 60 * 1000;
-let cache = { at: 0, data: null };
+const instances = new Map();
+
+function createSquad(team) {
+  const TEAM_ID = team.id;
+  const TEAM_NAME = team.name;
+  const FOTMOB_SQUAD_PAGE = `https://www.fotmob.com/teams/${TEAM_ID}/squad/${team.fotmobSlug}`;
+  let cache = { at: 0, data: null };
 
 const GROUP_LABELS = {
   coach: "Coach",
@@ -140,7 +143,7 @@ async function fetchFromFotmob() {
   }
 }
 
-async function getMaccabiSquad() {
+async function getSquad() {
   if (cache.data && Date.now() - cache.at < CACHE_MS) {
     return cache.data;
   }
@@ -166,11 +169,25 @@ async function getMaccabiSquad() {
   return result;
 }
 
+return { getSquad, FOTMOB_SQUAD_PAGE, parseSquadPayload, extractTeamFromHtml, normalizeMember, PLAYER_PHOTO_FALLBACK };
+}
+
+function forTeam(slug) {
+  const team = getTeam(slug);
+  if (!team) return null;
+  if (!instances.has(team.slug)) instances.set(team.slug, createSquad(team));
+  return instances.get(team.slug);
+}
+
+const haifa = forTeam("maccabi-haifa");
+
 module.exports = {
-  getMaccabiSquad,
-  FOTMOB_SQUAD_PAGE,
-  parseSquadPayload,
-  extractTeamFromHtml,
-  normalizeMember,
-  PLAYER_PHOTO_FALLBACK,
+  forTeam,
+  getSquad: (slug) => forTeam(slug).getSquad(),
+  getMaccabiSquad: () => haifa.getSquad(),
+  FOTMOB_SQUAD_PAGE: haifa.FOTMOB_SQUAD_PAGE,
+  parseSquadPayload: haifa.parseSquadPayload,
+  extractTeamFromHtml: haifa.extractTeamFromHtml,
+  normalizeMember: haifa.normalizeMember,
+  PLAYER_PHOTO_FALLBACK: haifa.PLAYER_PHOTO_FALLBACK,
 };

@@ -13,6 +13,21 @@ const TEAM_CITIES = {
   7929: { city: "Petah Tikva", lat: 32.0871, lng: 34.8878 },
   7855: { city: "Tel Aviv", lat: 32.0853, lng: 34.7818 },
   543580: { city: "Tiberias", lat: 32.7951, lng: 35.5308 },
+  // Greek Super League
+  10200: { city: "Athens", lat: 37.9838, lng: 23.7275 },
+  8638: { city: "Piraeus", lat: 37.9427, lng: 23.6469 },
+  8563: { city: "Athens", lat: 37.9838, lng: 23.7275 },
+  8619: { city: "Thessaloniki", lat: 40.6401, lng: 22.9444 },
+  8239: { city: "Thessaloniki", lat: 40.6401, lng: 22.9444 },
+  7753: { city: "Heraklion", lat: 35.3387, lng: 25.1442 },
+  488099: { city: "Kifisia", lat: 38.0742, lng: 23.8115 },
+  1585: { city: "Kalamata", lat: 37.0389, lng: 22.1142 },
+  8675: { city: "Thessaloniki", lat: 40.6401, lng: 22.9444 },
+  162386: { city: "Agrinio", lat: 38.6214, lng: 21.4079 },
+  80654: { city: "Tripoli", lat: 37.5089, lng: 22.3713 },
+  10187: { city: "Athens", lat: 37.9838, lng: 23.7275 },
+  4493: { city: "Livadeia", lat: 38.4363, lng: 22.8742 },
+  885256: { city: "Volos", lat: 39.3666, lng: 22.9507 },
 };
 
 const TEAM_NAME_CITIES = {

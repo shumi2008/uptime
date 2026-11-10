@@ -7,8 +7,11 @@
   if (!section || !canvas || typeof Chart === "undefined") return;
 
   const colors = {
-    line: "#1a9b7a",
-    fill: "rgba(26, 155, 122, 0.38)",
+    line: window.CURRENT_TEAM?.slug === "aek-athens" ? "#d4a90f" : "#1a9b7a",
+    fill:
+      window.CURRENT_TEAM?.slug === "aek-athens"
+        ? "rgba(245, 197, 24, 0.38)"
+        : "rgba(26, 155, 122, 0.38)",
     muted: "#4a6360",
     grid: "rgba(12, 26, 31, 0.08)",
     champion: "#e8c547",
@@ -202,7 +205,7 @@
   async function loadHistory() {
     if (statusEl) statusEl.textContent = "Loading club history…";
     try {
-      const res = await fetch("/api/history/maccabi-haifa");
+      const res = await fetch(teamApi("history"));
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const seasons = Array.isArray(data.seasons) ? data.seasons : [];
@@ -216,7 +219,7 @@
         data.chartedSeasons ?? allRows.filter((r) => r.position != null).length;
 
       if (summaryEl) {
-        summaryEl.textContent = `Chart from first recorded league finish (${first}) through ${last}. ${withTable} seasons with a table position in the full club history. ${data.titles ?? 0} top-flight titles. Green fill shows finish over time; 1st place sits below the top margin.`;
+        summaryEl.textContent = `Chart from first recorded league finish (${first}) through ${last}. ${withTable} seasons with a table position in the full club history. ${data.titles ?? 0} top-flight titles. Filled area shows finish over time; 1st place sits below the top margin.`;
       }
 
       renderChart(rows);

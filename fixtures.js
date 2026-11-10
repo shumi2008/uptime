@@ -1,15 +1,15 @@
-const TEAM_ID = 10185;
-const TEAM_NAME = "Maccabi Haifa";
-const LIGAT_LEAGUE_ID = 127;
-const FOTMOB_PAGE =
-  "https://www.fotmob.com/teams/10185/fixtures/maccabi-haifa";
-
+const { getTeam } = require("./teams");
 const { getTeamCity } = require("./team-cities");
 const { httpsFetch } = require("./lib/https-fetch");
 const { formatDisplayDateTime } = require("./lib/display-time");
 
 const CACHE_MS = 15 * 60 * 1000;
-let cache = { at: 0, data: null };
+const instances = new Map();
+
+function createFixtures(team) {
+  const TEAM_ID = team.id;
+  const TEAM_NAME = team.name;
+  const FOTMOB_PAGE = `https://www.fotmob.com/teams/${TEAM_ID}/fixtures/${team.fotmobSlug}`;
 
 function parseFixtureDate(utcTime) {
   if (!utcTime) return null;
@@ -97,7 +97,7 @@ async function loadGoalScorers(team) {
   if (!goalsStat?.fetchAllUrl) {
     try {
       const response = await httpsFetch(
-        "https://www.fotmob.com/teams/10185/squad/maccabi-haifa",
+        `https://www.fotmob.com/teams/${TEAM_ID}/squad/${team.fotmobSlug}`,
         {
           headers: {
             "User-Agent":
@@ -157,6 +157,8 @@ function normalizeFixture(raw) {
     finished && homeTeam?.score != null ? Number(homeTeam.score) : null;
   const awayScore =
     finished && awayTeam?.score != null ? Number(awayTeam.score) : null;
+  const isTeamHome =
+    homeId != null ? Number(homeId) === TEAM_ID : home.toLowerCase().includes(TEAM_NAME.toLowerCase());
   const scoreLabel =
     finished && status.scoreStr
       ? status.scoreStr
@@ -185,17 +187,17 @@ function normalizeFixture(raw) {
     homeScore,
     awayScore,
     scoreLabel,
-    isHome: home.toLowerCase().includes("maccabi haifa"),
-    opponent: home.toLowerCase().includes("maccabi haifa") ? away : home,
-    venue: home.toLowerCase().includes("maccabi haifa") ? "Home" : "Away",
+    isHome: isTeamHome,
+    opponent: isTeamHome ? away : home,
+    venue: isTeamHome ? "Home" : "Away",
   };
 }
 
 function isLeagueFixture(raw) {
   const leagueId = raw.tournament?.leagueId;
-  if (leagueId === LIGAT_LEAGUE_ID) return true;
+  if (leagueId === team.leagueId) return true;
   const name = raw.tournament?.name || "";
-  return name.toLowerCase().includes("ligat ha");
+  return name.toLowerCase().includes(team.leagueNamePattern);
 }
 
 function getHaifaOutcome(raw, fixture) {
@@ -501,11 +503,9 @@ async function fetchFromFotmob() {
   }
 }
 
-function clearFixturesCache() {
-  cache = { at: 0, data: null };
-}
+let cache = { at: 0, data: null };
 
-async function getMaccabiFixtures() {
+async function getFixtures() {
   if (cache.data && Date.now() - cache.at < CACHE_MS) {
     return cache.data;
   }
@@ -529,9 +529,11 @@ async function getMaccabiFixtures() {
   return result;
 }
 
-module.exports = {
-  getMaccabiFixtures,
-  clearFixturesCache,
+return {
+  getFixtures,
+  clearCache: () => {
+    cache = { at: 0, data: null };
+  },
   FOTMOB_PAGE,
   parseTeamPayload,
   parseLeagueResultsFromFixtures,
@@ -539,4 +541,28 @@ module.exports = {
   parseLeagueMatchGoals,
   parseAllLeagueResultsAsync,
   extractTeamFromHtml,
+};
+}
+
+function forTeam(slug) {
+  const team = getTeam(slug);
+  if (!team) return null;
+  if (!instances.has(team.slug)) instances.set(team.slug, createFixtures(team));
+  return instances.get(team.slug);
+}
+
+const haifa = forTeam("maccabi-haifa");
+
+module.exports = {
+  forTeam,
+  getFixtures: (slug) => forTeam(slug).getFixtures(),
+  getMaccabiFixtures: () => haifa.getFixtures(),
+  clearFixturesCache: () => instances.forEach((i) => i.clearCache()),
+  FOTMOB_PAGE: haifa.FOTMOB_PAGE,
+  parseTeamPayload: haifa.parseTeamPayload,
+  parseLeagueResultsFromFixtures: haifa.parseLeagueResultsFromFixtures,
+  summarizeLeagueRecord: haifa.summarizeLeagueRecord,
+  parseLeagueMatchGoals: haifa.parseLeagueMatchGoals,
+  parseAllLeagueResultsAsync: haifa.parseAllLeagueResultsAsync,
+  extractTeamFromHtml: haifa.extractTeamFromHtml,
 };

@@ -7,11 +7,12 @@ const { execFile } = require("child_process");
 const { promisify } = require("util");
 const db = require("./db");
 const APP_VERSION = require("./package.json").version;
-const { getMaccabiFixtures } = require("./fixtures");
+const { getFixtures } = require("./fixtures");
+const { publicTeams, getTeam, DEFAULT_TEAM } = require("./teams");
 const { getLiveMatch } = require("./live-match");
-const { getMaccabiTable } = require("./table");
-const { getMaccabiSquad } = require("./squad");
-const { getMaccabiHistory } = require("./history");
+const { getTable } = require("./table");
+const { getSquad } = require("./squad");
+const { getHistory } = require("./history");
 const { httpsFetch } = require("./lib/https-fetch");
 const { findNearbyFootballTeams } = require("./lib/nearby-football-teams");
 
@@ -462,9 +463,20 @@ app.post("/api/sessions", async (req, res) => {
   }
 });
 
-app.get("/api/fixtures/maccabi-haifa", async (_req, res) => {
+app.get("/api/teams", (_req, res) => {
+  res.json({ default: DEFAULT_TEAM, teams: publicTeams() });
+});
+
+function requireTeam(req, res, next) {
+  if (!getTeam(req.params.team)) {
+    return res.status(404).json({ ok: false, error: "Unknown team" });
+  }
+  next();
+}
+
+app.get("/api/fixtures/:team", requireTeam, async (req, res) => {
   try {
-    const data = await getMaccabiFixtures();
+    const data = await getFixtures(req.params.team);
     res.json(data);
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
@@ -500,26 +512,26 @@ app.get("/api/matches/:matchId/live", async (req, res) => {
   }
 });
 
-app.get("/api/table/maccabi-haifa", async (_req, res) => {
+app.get("/api/table/:team", requireTeam, async (req, res) => {
   try {
-    const data = await getMaccabiTable();
+    const data = await getTable(req.params.team);
     res.json(data);
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
   }
 });
 
-app.get("/api/history/maccabi-haifa", async (_req, res) => {
+app.get("/api/history/:team", requireTeam, async (req, res) => {
   try {
-    res.json(await getMaccabiHistory());
+    res.json(await getHistory(req.params.team));
   } catch (err) {
     res.status(502).json({ error: err.message || "History unavailable" });
   }
 });
 
-app.get("/api/squad/maccabi-haifa", async (_req, res) => {
+app.get("/api/squad/:team", requireTeam, async (req, res) => {
   try {
-    const data = await getMaccabiSquad();
+    const data = await getSquad(req.params.team);
     res.json(data);
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });

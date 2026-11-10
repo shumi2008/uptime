@@ -2,14 +2,10 @@ const fs = require("fs");
 const path = require("path");
 const { httpsFetch } = require("./lib/https-fetch");
 
-const TEAM_ID = 10185;
-const TEAM_NAME = "Maccabi Haifa";
-const FOTMOB_HISTORY_PAGE =
-  "https://www.fotmob.com/en-GB/teams/10185/history/maccabi-haifa";
-const STATIC_PATH = path.join(__dirname, "data", "haifa-league-positions.json");
+const { getTeam } = require("./teams");
 
 const CACHE_MS = 6 * 60 * 60 * 1000;
-let cache = { at: 0, data: null };
+const caches = new Map();
 
 function seasonSortKey(season) {
   const match = String(season).match(/^(\d{4})/);
@@ -72,7 +68,9 @@ function normalizeSeasonLabel(season) {
   return raw;
 }
 
-function loadStaticSeasons() {
+function loadStaticSeasons(team) {
+  if (!team.historyFile) return [];
+  const STATIC_PATH = path.join(__dirname, "data", team.historyFile);
   let rows;
   try {
     rows = JSON.parse(fs.readFileSync(STATIC_PATH, "utf8"));
@@ -88,7 +86,7 @@ function loadStaticSeasons() {
   }));
 }
 
-function extractTeamFromHtml(html) {
+function extractTeamFromHtml(html, TEAM_ID) {
   const match = html.match(
     /<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/
   );
@@ -98,7 +96,9 @@ function extractTeamFromHtml(html) {
   return payload?.props?.pageProps?.fallback?.[`team-${TEAM_ID}`] || null;
 }
 
-async function fetchFotmobHistoryRanks() {
+async function fetchFotmobHistoryRanks(team) {
+  const TEAM_ID = team.id;
+  const FOTMOB_HISTORY_PAGE = fotmobHistoryPage(team);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 20_000);
 
@@ -118,15 +118,19 @@ async function fetchFotmobHistoryRanks() {
     }
 
     const html = await response.text();
-    const team = extractTeamFromHtml(html);
-    const ranks = team?.history?.historicalTableData?.ranks;
+    const payload = extractTeamFromHtml(html, TEAM_ID);
+    const ranks = payload?.history?.historicalTableData?.ranks;
     if (!Array.isArray(ranks)) return [];
 
     return ranks
-      .filter((row) => row.tournamentName === "Ligat ha'Al" || row.templateId === 127)
+      .filter(
+        (row) =>
+          row.templateId === team.leagueId ||
+          String(row.tournamentName || "").toLowerCase().includes(team.leagueNamePattern)
+      )
       .map((row) => ({
         season: normalizeSeasonLabel(row.seasonName),
-        division: row.tournamentName || "Ligat ha'Al",
+        division: row.tournamentName || team.leagueLabel,
         position: row.position,
         source: "fotmob",
         inProgress: row.stats?.points === -1,
@@ -134,6 +138,10 @@ async function fetchFotmobHistoryRanks() {
   } finally {
     clearTimeout(timer);
   }
+}
+
+function fotmobHistoryPage(team) {
+  return `https://www.fotmob.com/en-GB/teams/${team.id}/history/${team.fotmobSlug}`;
 }
 
 function mergeSeasonRows(staticRows, fotmobRows) {
@@ -164,25 +172,30 @@ function mergeSeasonRows(staticRows, fotmobRows) {
   );
 }
 
-async function getMaccabiHistory() {
+async function getHistory(slug) {
+  const team = getTeam(slug);
+  if (!team) throw new Error("Unknown team");
+  const TEAM_ID = team.id;
+  const TEAM_NAME = team.name;
+  const FOTMOB_HISTORY_PAGE = fotmobHistoryPage(team);
+  const cache = caches.get(team.slug) || { at: 0, data: null };
   if (cache.data && Date.now() - cache.at < CACHE_MS) {
     return cache.data;
   }
 
-  const staticRows = loadStaticSeasons();
+  const staticRows = loadStaticSeasons(team);
   let fotmobRows = [];
 
   try {
-    fotmobRows = await fetchFotmobHistoryRanks();
+    fotmobRows = await fetchFotmobHistoryRanks(team);
   } catch {
     // Static Wikipedia-derived rows remain available offline.
   }
 
   const merged = mergeSeasonRows(staticRows, fotmobRows);
-  const seasons = fillCompleteSeasonHistory(merged, 1913);
+  const seasons = fillCompleteSeasonHistory(merged, team.founded);
   const chartedSeasons = seasons.filter((row) => row.position != null);
-  const topFlightPattern =
-    /leumit|ligat|premier|israeli league|israeli premier/i;
+  const topFlightPattern = team.historyDivisionPattern;
   const titles = chartedSeasons.filter(
     (row) => row.position === 1 && topFlightPattern.test(row.division || "")
   ).length;
@@ -193,26 +206,29 @@ async function getMaccabiHistory() {
   const result = {
     team: TEAM_NAME,
     teamId: TEAM_ID,
-    clubFounded: 1913,
+    clubFounded: team.founded,
     seasons,
     chartedSeasons: chartedSeasons.length,
     seasonsWithoutTable: seasons.length - chartedSeasons.length,
     titles,
     firstPlaceFinishes,
-    sourceUrl:
-      "https://en.wikipedia.org/wiki/List_of_Maccabi_Haifa_F.C._seasons",
+    sourceUrl: team.wikiSeasonsUrl,
     fotmobUrl: FOTMOB_HISTORY_PAGE,
     fetchedAt: new Date().toISOString(),
-    note:
-      "Every season from 1913/14 (club founding) through the current campaign. Documented league finishes from Wikipedia (from 1949/50) and recent Ligat ha'Al rows from FotMob; other years have no recorded league table position.",
+    note: `Every season from ${seasonLabelFromStartYear(team.founded)} (club founding) through the current campaign. ${
+      team.historyFile
+        ? `Documented league finishes from Wikipedia (from 1949/50) and recent ${team.leagueLabel} rows from FotMob; `
+        : `League finishes from FotMob (${team.leagueLabel}); `
+    }other years have no recorded league table position.`,
   };
 
-  cache = { at: Date.now(), data: result };
+  caches.set(team.slug, { at: Date.now(), data: result });
   return result;
 }
 
 module.exports = {
-  getMaccabiHistory,
+  getHistory,
+  getMaccabiHistory: () => getHistory("maccabi-haifa"),
   normalizeSeasonLabel,
   mergeSeasonRows,
   fillCompleteSeasonHistory,

@@ -1,14 +1,17 @@
-const TEAM_ID = 10185;
-const TEAM_NAME = "Maccabi Haifa";
-const FOTMOB_TABLE_PAGE =
-  "https://www.fotmob.com/teams/10185/table/maccabi-haifa";
+const { getTeam } = require("./teams");
 
 const { getTeamCity, buildCityHeatmap } = require("./team-cities");
 const { httpsFetch } = require("./lib/https-fetch");
 const { formatDisplayDateTime } = require("./lib/display-time");
 
 const CACHE_MS = 15 * 60 * 1000;
-let cache = { at: 0, data: null };
+const instances = new Map();
+
+function createTable(team) {
+  const TEAM_ID = team.id;
+  const TEAM_NAME = team.name;
+  const FOTMOB_TABLE_PAGE = `https://www.fotmob.com/teams/${TEAM_ID}/table/${team.fotmobSlug}`;
+  let cache = { at: 0, data: null };
 
 function teamLogoUrl(id) {
   if (!id) return null;
@@ -144,7 +147,7 @@ async function fetchFromFotmob() {
   }
 }
 
-async function getMaccabiTable() {
+async function getTable() {
   if (cache.data && Date.now() - cache.at < CACHE_MS) {
     return cache.data;
   }
@@ -163,9 +166,23 @@ async function getMaccabiTable() {
   return result;
 }
 
+return { getTable, FOTMOB_TABLE_PAGE, parseTablePayload, extractTeamFromHtml };
+}
+
+function forTeam(slug) {
+  const team = getTeam(slug);
+  if (!team) return null;
+  if (!instances.has(team.slug)) instances.set(team.slug, createTable(team));
+  return instances.get(team.slug);
+}
+
+const haifa = forTeam("maccabi-haifa");
+
 module.exports = {
-  getMaccabiTable,
-  FOTMOB_TABLE_PAGE,
-  parseTablePayload,
-  extractTeamFromHtml,
+  forTeam,
+  getTable: (slug) => forTeam(slug).getTable(),
+  getMaccabiTable: () => haifa.getTable(),
+  FOTMOB_TABLE_PAGE: haifa.FOTMOB_TABLE_PAGE,
+  parseTablePayload: haifa.parseTablePayload,
+  extractTeamFromHtml: haifa.extractTeamFromHtml,
 };

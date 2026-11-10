@@ -139,7 +139,9 @@ function isLigatHaAlCompetition(name) {
   const normalized = String(name)
     .toLowerCase()
     .replace(/[’`´]/g, "'");
-  return normalized.includes("ligat ha");
+  return normalized.includes(
+    CURRENT_TEAM.slug === "maccabi-haifa" ? "ligat ha" : CURRENT_TEAM.leagueLabel.toLowerCase()
+  );
 }
 
 function competitionMetaPart(name) {
@@ -467,6 +469,8 @@ createApp({
     });
 
     const canShowLastPlayed = computed(() => {
+      // The last-played report is Haifa-only sample data.
+      if (CURRENT_TEAM.slug !== "maccabi-haifa") return false;
       if (loading.value || nextMatchStarted.value) return false;
       if (kickoffDue.value && !liveStatusKnown.value) return false;
       return true;
@@ -613,7 +617,7 @@ createApp({
 
     async function loadTableRanks() {
       try {
-        const res = await fetch("/api/table/maccabi-haifa");
+        const res = await fetch(teamApi("table"));
         if (!res.ok) return;
         const data = await res.json();
         tableRanks.value = tableRankMap(Array.isArray(data.rows) ? data.rows : []);
@@ -625,7 +629,7 @@ createApp({
     async function loadFixtures({ quiet = false } = {}) {
       if (!quiet) loading.value = true;
       try {
-        const res = await fetch("/api/fixtures/maccabi-haifa");
+        const res = await fetch(teamApi("fixtures"));
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         fixtures.value = Array.isArray(data.fixtures) ? data.fixtures : [];
@@ -637,7 +641,7 @@ createApp({
         error.value = "";
       } catch {
         if (!quiet) {
-          error.value = "Could not load Maccabi Haifa fixtures.";
+          error.value = `Could not load ${CURRENT_TEAM.name} fixtures.`;
           fixtures.value = [];
           results.value = [];
           nextMatch.value = null;
@@ -680,6 +684,7 @@ createApp({
     }
 
     async function loadLastPlayed() {
+      if (CURRENT_TEAM.slug !== "maccabi-haifa") return;
       if (lastPlayedPayload.value || lastPlayedLoading.value) return;
       lastPlayedLoading.value = true;
       lastPlayedError.value = "";
@@ -802,7 +807,7 @@ createApp({
     async function loadTable() {
       loading.value = true;
       try {
-        const res = await fetch("/api/table/maccabi-haifa");
+        const res = await fetch(teamApi("table"));
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         rows.value = Array.isArray(data.rows) ? data.rows : [];
@@ -864,7 +869,7 @@ createApp({
     async function loadSquad() {
       loading.value = true;
       try {
-        const res = await fetch("/api/squad/maccabi-haifa");
+        const res = await fetch(teamApi("squad"));
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         groups.value = Array.isArray(data.groups)
@@ -883,7 +888,7 @@ createApp({
           data.playerPhotoFallback || playerPhotoFallback.value;
         error.value = "";
       } catch {
-        error.value = "Could not load Maccabi Haifa squad.";
+        error.value = `Could not load ${CURRENT_TEAM.name} squad.`;
         groups.value = [];
         playerCount.value = 0;
       } finally {
@@ -915,6 +920,7 @@ createApp({
       useOriginalPhoto,
       error,
       loading,
+      teamName: CURRENT_TEAM.name,
     };
   },
 }).mount("#squad-app");

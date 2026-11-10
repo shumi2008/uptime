@@ -1,8 +1,9 @@
 const ISRAEL_CENTER = {
-  lat: 31.75,
-  lng: 34.85,
-  label: "Israel",
+  lat: CURRENT_TEAM.map.lat,
+  lng: CURRENT_TEAM.map.lng,
+  label: CURRENT_TEAM.map.label,
 };
+const MAP_DEFAULT_ZOOM = CURRENT_TEAM.map.zoom;
 
 const HEATMAP_OPTIONS = {
   radius: 38,
@@ -73,8 +74,8 @@ function toHeatLayerData(cities) {
   return cities.map((city) => [city.lat, city.lng, city.intensity]);
 }
 
-const HAIFA_TEAM_ID = 10185;
-const RANK_HEAT_COLOR_HAIFA = "#22b890";
+const HAIFA_TEAM_ID = CURRENT_TEAM.id;
+const RANK_HEAT_COLOR_HAIFA = CURRENT_TEAM.color;
 const RANK_HEAT_COLOR_OTHER = "#6366f1";
 
 function isMaccabiHaifaTeam(team) {
@@ -83,7 +84,7 @@ function isMaccabiHaifaTeam(team) {
   const name = String(team?.name || "")
     .trim()
     .toLowerCase();
-  return name === "maccabi haifa";
+  return name === CURRENT_TEAM.name.toLowerCase();
 }
 
 function getRankTeamHeatColor(team) {
@@ -132,9 +133,9 @@ function ensureMap() {
   mapInstance = L.map(mapEl, {
     scrollWheelZoom: true,
     preferCanvas: true,
-    minZoom: 6,
+    minZoom: CURRENT_TEAM.map.minZoom,
     maxZoom: 16,
-  }).setView([ISRAEL_CENTER.lat, ISRAEL_CENTER.lng], 8);
+  }).setView([ISRAEL_CENTER.lat, ISRAEL_CENTER.lng], MAP_DEFAULT_ZOOM);
 
   L.tileLayer(DARK_BASEMAP.url, DARK_BASEMAP.options)
     .on("tileerror", () => {
@@ -583,7 +584,7 @@ function renderRankLegend(teams) {
     })
     .join("");
 
-  legendEl.innerHTML = `<p class="map-rank-legend__title">Ranking colours — Maccabi Haifa green; other teams indigo</p>
+  legendEl.innerHTML = `<p class="map-rank-legend__title">Ranking colours — ${CURRENT_TEAM.name} highlighted; other teams indigo</p>
     <ul class="map-rank-legend__list">${items}</ul>`;
 }
 
@@ -648,7 +649,7 @@ function renderResultsLegend(results) {
     })
     .join("");
 
-  legendEl.innerHTML = `<p class="map-rank-legend__title">Maccabi Haifa — Ligat ha'Al results (${wins} wins, ${losses} losses)</p>
+  legendEl.innerHTML = `<p class="map-rank-legend__title">${CURRENT_TEAM.name} — ${CURRENT_TEAM.leagueLabel} results (${wins} wins, ${losses} losses)</p>
     <div class="map-rank-legend__summary">
       <span class="map-rank-legend__item"><span class="map-rank-legend__swatch" style="background:${RESULT_COLORS.win}"></span> Win</span>
       <span class="map-rank-legend__item"><span class="map-rank-legend__swatch" style="background:${RESULT_COLORS.loss}"></span> Loss</span>
@@ -713,7 +714,7 @@ function addRankHeatLayers(map, teams) {
 
 function fitMapToPoints(map, points, { animate = false } = {}) {
   if (!points.length) {
-    map.setView([ISRAEL_CENTER.lat, ISRAEL_CENTER.lng], 8, { animate });
+    map.setView([ISRAEL_CENTER.lat, ISRAEL_CENTER.lng], MAP_DEFAULT_ZOOM, { animate });
     return;
   }
 
@@ -780,7 +781,7 @@ function showRankingsView({ animate = true } = {}) {
   addRankHeatLayers(map, teams);
   renderRankLegend(teams);
 
-  leagueStatusMessage = `${leagueName || "League table"} — Maccabi Haifa green glow; other teams indigo (top six ranked by heat)`;
+  leagueStatusMessage = `${leagueName || "League table"} — ${CURRENT_TEAM.name} glow; other teams indigo (top six ranked by heat)`;
   setMapStatus(leagueStatusMessage);
 
   fitMapToPoints(
@@ -805,7 +806,7 @@ function showResultsView({ animate = true } = {}) {
 
   const wins = haifaLeagueResults.filter((result) => result.outcome === "win").length;
   const losses = haifaLeagueResults.filter((result) => result.outcome === "loss").length;
-  leagueStatusMessage = `Maccabi Haifa — ${haifaLeagueResults.length} Ligat ha'Al results (${wins} wins, ${losses} losses)`;
+  leagueStatusMessage = `${CURRENT_TEAM.name} — ${haifaLeagueResults.length} ${CURRENT_TEAM.leagueLabel} results (${wins} wins, ${losses} losses)`;
   setMapStatus(leagueStatusMessage);
 
   fitMapToPoints(
@@ -989,8 +990,7 @@ const RESULT_DOUGHNUT_COLORS = {
   tie: "#c4a35a",
 };
 
-const HAIFA_LOGO_URL =
-  "https://images.fotmob.com/image_resources/logo/teamlogo/10185.png";
+const HAIFA_LOGO_URL = CURRENT_TEAM.logo;
 const haifaCenterLogo = new Image();
 haifaCenterLogo.src = HAIFA_LOGO_URL;
 let haifaDoughnutLogoPluginRegistered = false;
@@ -1301,7 +1301,7 @@ function updateMapResultsCharts(record, matchGoals, goalScorers) {
 
 async function loadHaifaLeagueResults() {
   try {
-    const res = await fetch("/api/fixtures/maccabi-haifa");
+    const res = await fetch(teamApi("fixtures"));
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     haifaLeagueResults = Array.isArray(data.leagueResults) ? data.leagueResults : [];
@@ -1321,7 +1321,7 @@ async function loadLeagueHeatmap() {
   setMapStatus("Loading league cities…");
 
   try {
-    const res = await fetch("/api/table/maccabi-haifa");
+    const res = await fetch(teamApi("table"));
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     const cities = Array.isArray(data.cities) ? data.cities : [];

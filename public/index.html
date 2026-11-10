@@ -396,7 +396,7 @@
         <p>Heat intensity per city based on league table points — one glow per city.</p>
       </header>
       <p id="map-status" class="map-status">Loading map…</p>
-      <div id="leaflet-map" class="leaflet-map" aria-label="Heatmap of league table cities in Israel"></div>
+      <div id="leaflet-map" class="leaflet-map" aria-label="Heatmap of league table cities"></div>
       <div class="map-toolbar">
         <div class="map-actions">
           <button id="map-league-btn" type="button" class="map-action-btn map-action-btn--secondary" disabled>
@@ -423,7 +423,7 @@
           <h3>Goals per match</h3>
           <canvas
             id="haifa-goals-chart"
-            aria-label="Line chart of Maccabi Haifa goals scored and conceded per Ligat ha'Al match"
+            aria-label="Line chart of team goals scored and conceded per league match"
           ></canvas>
           <ul
             id="haifa-goal-scorers"
@@ -435,10 +435,10 @@
           </ul>
         </div>
         <div id="map-results-doughnut" class="chart-panel" hidden>
-          <h3>Ligat ha'Al — season results</h3>
+          <h3><span data-team-league>Ligat ha'Al</span> — season results</h3>
           <canvas
             id="haifa-results-pie"
-            aria-label="Doughnut chart of wins, losses, and ties with Maccabi Haifa logo"
+            aria-label="Doughnut chart of wins, losses, and ties with team logo"
           ></canvas>
           <ul
             id="haifa-results-legend"
@@ -459,9 +459,9 @@
       data-app-view="map"
     >
       <header class="charts-header">
-        <h2>Maccabi Haifa — league history</h2>
+        <h2><span data-team-name>Maccabi Haifa</span> — league history</h2>
         <p>
-          Every season from 1913/14 (founding) through today appears on the chart; years without a table position are left blank.
+          Every season from <span data-team-founded>1913/14</span> (founding) through today appears on the chart; years without a table position are left blank.
         </p>
         <p id="club-history-summary" class="history-section__summary"></p>
       </header>
@@ -999,7 +999,7 @@
 
     <script type="text/x-template" id="squad-template">
       <header class="charts-header">
-        <h2>Maccabi Haifa — squad</h2>
+        <h2>{{ teamName }} — squad</h2>
         <p v-if="fetchedAt || playerCount">
           <span v-if="fetchedAt">Updated {{ fetchedLabel }}</span>
           <span v-if="fetchedAt && playerCount"> · </span>
@@ -1059,6 +1059,7 @@
       </div>
     </script>
 
+    <script src="/team.js"></script>
     <script src="/shell.js"></script>
     <script src="/vendor/vue.global.prod.js"></script>
     <script src="/vendor/chart.umd.min.js"></script>
