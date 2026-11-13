@@ -1000,7 +1000,7 @@ function normalizeLeagueRecord(raw) {
 const RESULT_DOUGHNUT_COLORS =
   CURRENT_TEAM.slug === "aek-athens"
     ? { win: "#000000", loss: "#dc2626", tie: "#f5c518" }
-    : { win: "#1a9b7a", loss: "#8a3b2b", tie: "#c4a35a" };
+    : { win: "#1a9b7a", loss: "#dc2626", tie: "#c4a35a" };
 
 const HAIFA_LOGO_URL = CURRENT_TEAM.logo;
 const haifaCenterLogo = new Image();

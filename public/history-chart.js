@@ -17,6 +17,7 @@
     champion: "#e8c547",
     strong: "#1a9b7a",
     weak: "#8a3b2b",
+    loss: "#d33a2c",
     default: "#6b8f84",
   };
 
@@ -136,6 +137,14 @@
             pointBackgroundColor: pointColors,
             pointBorderColor: pointColors,
             spanGaps: true,
+            segment: {
+              // Position number going up = finished lower = lost ground.
+              borderColor(ctx) {
+                const from = ctx.p0.parsed.y;
+                const to = ctx.p1.parsed.y;
+                return to > from ? colors.loss : undefined;
+              },
+            },
           },
         ],
       },

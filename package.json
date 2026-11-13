@@ -1,6 +1,6 @@
 {
   "name": "uptime",
-  "version": "26.11.12",
+  "version": "26.11.13",
   "description": "Simple Node.js uptime application",
   "main": "server.js",
   "scripts": {
