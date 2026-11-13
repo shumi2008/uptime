@@ -6,6 +6,7 @@ if (registered === "1") {
   const lede = document.querySelector(".login-card__lede");
   if (lede) {
     lede.textContent = "Account created. Sign in with your new credentials.";
+    lede.hidden = false;
   }
 }
 

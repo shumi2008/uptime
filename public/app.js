@@ -469,8 +469,6 @@ createApp({
     });
 
     const canShowLastPlayed = computed(() => {
-      // The last-played report is Haifa-only sample data.
-      if (CURRENT_TEAM.slug !== "maccabi-haifa") return false;
       if (loading.value || nextMatchStarted.value) return false;
       if (kickoffDue.value && !liveStatusKnown.value) return false;
       return true;
@@ -684,12 +682,11 @@ createApp({
     }
 
     async function loadLastPlayed() {
-      if (CURRENT_TEAM.slug !== "maccabi-haifa") return;
       if (lastPlayedPayload.value || lastPlayedLoading.value) return;
       lastPlayedLoading.value = true;
       lastPlayedError.value = "";
       try {
-        const res = await fetch("/api/matches/last-played");
+        const res = await fetch(`/api/matches/last-played?team=${encodeURIComponent(CURRENT_TEAM.slug)}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (!data?.match || !data?.fixture) throw new Error("Incomplete last played mock");
@@ -1081,7 +1078,7 @@ createApp({
     const samples = ref([]);
     const error = ref("");
     const ok = ref(true);
-    const intervalSeconds = ref(60);
+    const intervalSeconds = ref(3600);
     const timeRangeHours = ref(12);
     const timeRangeUseAll = ref(false);
     const captureStartedAt = ref(null);
@@ -1133,6 +1130,10 @@ createApp({
       if (seconds === 1) return "1 second";
       if (seconds < 60) return `${seconds} seconds`;
       if (seconds === 60) return "1 minute";
+      if (seconds % 3600 === 0) {
+        const hours = seconds / 3600;
+        return hours === 1 ? "1 hour" : `${hours} hours`;
+      }
       const minutes = Math.floor(seconds / 60);
       const rem = seconds % 60;
       if (rem === 0) return `${minutes} minutes`;
@@ -1344,7 +1345,7 @@ createApp({
     }
 
     async function clearAll() {
-      const DEFAULT_INTERVAL_SECONDS = 60;
+      const DEFAULT_INTERVAL_SECONDS = 3600;
       const DEFAULT_TIME_RANGE_HOURS = 12;
 
       try {

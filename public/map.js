@@ -997,11 +997,10 @@ function normalizeLeagueRecord(raw) {
 }
 
 /** Same palette as monthly uptime doughnut (app.js chartColors). */
-const RESULT_DOUGHNUT_COLORS = {
-  win: "#1a9b7a",
-  loss: "#8a3b2b",
-  tie: "#c4a35a",
-};
+const RESULT_DOUGHNUT_COLORS =
+  CURRENT_TEAM.slug === "aek-athens"
+    ? { win: "#000000", loss: "#dc2626", tie: "#f5c518" }
+    : { win: "#1a9b7a", loss: "#8a3b2b", tie: "#c4a35a" };
 
 const HAIFA_LOGO_URL = CURRENT_TEAM.logo;
 const haifaCenterLogo = new Image();
@@ -1026,12 +1025,14 @@ function registerHaifaDoughnutLogoPlugin() {
       if (!arc) return;
 
       const size = arc.innerRadius * 2 * 0.84;
+      // Haifa's logo sits slightly high; AEK's is centred exactly.
+      const offsetY = CURRENT_TEAM.slug === "aek-athens" ? 0 : -10;
       const { ctx } = chart;
       ctx.save();
       ctx.drawImage(
         haifaCenterLogo,
         arc.x - size / 2,
-        arc.y - size / 2 - 10,
+        arc.y - size / 2 + offsetY,
         size,
         size
       );

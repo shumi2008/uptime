@@ -26,7 +26,7 @@ const TEAMS = {
     leagueNamePattern: "super league",
     leagueLabel: "Super League",
     historyDivisionPattern: /super league|alpha ethniki|greek|a' ethniki|a ethniki/i,
-    historyFile: null,
+    historyFile: "aek-league-positions.json",
     founded: 1924,
     wikiSeasonsUrl: "https://en.wikipedia.org/wiki/List_of_AEK_Athens_F.C._seasons",
     color: "#f5c518",

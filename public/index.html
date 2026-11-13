@@ -599,16 +599,16 @@
               id="ping-interval-slider"
               class="ping-interval__slider"
               type="range"
-              min="1"
-              max="120"
-              step="1"
+              min="3600"
+              max="43200"
+              step="3600"
               v-model.number="intervalSeconds"
               @input="onIntervalChange"
             />
             <div class="ping-interval__scale" aria-hidden="true">
-              <span>1s</span>
-              <span>60s</span>
-              <span>120s</span>
+              <span>1h</span>
+              <span>6h</span>
+              <span>12h</span>
             </div>
           </div>
 

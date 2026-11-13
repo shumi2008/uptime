@@ -1,6 +1,8 @@
 data/*
 !data/haifa-league-positions.json
-!data/last-played-game.json
+!data/haifa-last-played-game.json
+!data/aek-league-positions.json
+!data/aek-last-played-game.json
 node_modules/
 .DS_Store
 .env

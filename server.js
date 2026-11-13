@@ -483,11 +483,16 @@ app.get("/api/fixtures/:team", requireTeam, async (req, res) => {
   }
 });
 
-const LAST_PLAYED_MOCK = path.join(__dirname, "data", "last-played-game.json");
+const LAST_PLAYED_FILES = {
+  "maccabi-haifa": "haifa-last-played-game.json",
+  "aek-athens": "aek-last-played-game.json",
+};
 
-app.get("/api/matches/last-played", (_req, res) => {
+app.get("/api/matches/last-played", (req, res) => {
   try {
-    const payload = JSON.parse(fs.readFileSync(LAST_PLAYED_MOCK, "utf8"));
+    const slug = LAST_PLAYED_FILES[req.query.team] ? req.query.team : "maccabi-haifa";
+    const file = path.join(__dirname, "data", LAST_PLAYED_FILES[slug]);
+    const payload = JSON.parse(fs.readFileSync(file, "utf8"));
     if (!payload?.match || !payload?.fixture) {
       return res.status(500).json({ ok: false, error: "Last played mock is incomplete" });
     }

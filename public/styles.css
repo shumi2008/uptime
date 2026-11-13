@@ -388,12 +388,13 @@ body {
 }
 
 .hero--login .hero__logo-wrap {
-  position: static;
+  position: relative;
   z-index: 2;
   margin-bottom: clamp(1rem, 2.5vh, 1.5rem);
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: clamp(1rem, 4vw, 2rem);
   animation: rise 0.9s ease-out both;
 }
 
@@ -409,7 +410,7 @@ body {
   position: relative;
   z-index: 3;
   width: min(100%, 22rem);
-  padding: 1.75rem 1.5rem 1.5rem;
+  padding: 3.25rem 1.5rem 3rem;
   background: rgba(6, 18, 22, 0.58);
   border: 1px solid rgba(232, 242, 240, 0.14);
   backdrop-filter: blur(10px);
@@ -426,7 +427,10 @@ body {
 }
 
 .login-card h1 {
-  margin: 0 0 0.35rem;
+  margin: 0 0 1.1rem;
+  line-height: 1.25;
+  position: relative;
+  top: -10px;
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 3vw, 1.65rem);
   font-weight: 700;
@@ -3676,4 +3680,22 @@ body.is-app-shell:has(.hero--login),
 :root[data-team="aek-athens"] .map-action-btn--active:hover:not(:disabled),
 :root[data-team="aek-athens"] .map-action-btn--secondary.map-action-btn--active:hover:not(:disabled) {
   background: #ffd100;
+}
+
+/* AEK Athens: black wins, red losses, yellow ties */
+html[data-team="aek-athens"] .season-results__result--win { color: #000000; }
+html[data-team="aek-athens"] .season-results__result--loss { color: #dc2626; }
+html[data-team="aek-athens"] .season-results__result--draw { color: #d4a90f; }
+
+/* Login/register: right half of the background is a black-to-yellow gradient (AEK), left half unchanged (Haifa) */
+.hero--login::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(180deg, #000 0%, #000 50%, #1a1500 70%, #8f7000 90%, #ffd100 100%);
+  z-index: 1;
+  pointer-events: none;
 }
