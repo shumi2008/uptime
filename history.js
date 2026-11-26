@@ -88,7 +88,7 @@ function loadStaticSeasons(team) {
 
 function extractTeamFromHtml(html, TEAM_ID) {
   const match = html.match(
-    /<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/
+    /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/
   );
   if (!match) return null;
 

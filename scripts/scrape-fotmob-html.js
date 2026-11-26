@@ -14,7 +14,7 @@ async function main() {
   );
   const html = await response.text();
   const match = html.match(
-    /<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/
+    /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/
   );
   const data = JSON.parse(match[1]);
   const team = data?.props?.pageProps?.fallback?.["team-10185"];

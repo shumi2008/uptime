@@ -700,7 +700,7 @@ async function start() {
   }
 
   app.listen(PORT, () => {
-    console.log(`Uptime listening on http://localhost:${PORT}`);
+    console.log(`Uptime v${APP_VERSION} listening on http://localhost:${PORT}`);
   });
 
   process.on("SIGINT", () => shutdown("SIGINT"));

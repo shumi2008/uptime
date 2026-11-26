@@ -1,0 +1,64 @@
+================================================================================
+SESSION START
+================================================================================
+timestamp:     2026-11-25T19:46:18.397Z
+session_id:    2b614762-b787-4406-9d78-871e3156f4ef
+composer_mode: agent
+model:         auto-smart
+user_email:    leor.rosenberg@amdocs.com
+workspace:     /Users/leorro/uxp/work/uptime
+
+--------------------------------------------------------------------------------
+[2026-11-25T19:46:25.164Z] USER
+--------------------------------------------------------------------------------
+Could not load Maccabi Haifa fixtures.
+--------------------------------------------------------------------------------
+[2026-11-25T19:47:27.212Z] ASSISTANT
+--------------------------------------------------------------------------------
+The Maccabi Haifa fixtures load again. FotMob changed its page markup, and the parser no longer matched it.
+
+**Cause:** FotMob now adds `crossorigin="anonymous"` to the `__NEXT_DATA__` script tag. The parser's regex required the tag to end right after `type="application/json"`, so it found no match and threw `FotMob page did not include fixture data`. The UI then shows "Could not load Maccabi Haifa fixtures."
+
+**Fix:** I changed the regex in six files to accept any extra attributes on that tag:
+- `fixtures.js` (the path behind your error)
+- `table.js`, `squad.js`, `history.js`, which would have failed the same way
+- `lib/fotmob-location-teams.js` and `scripts/scrape-fotmob-html.js`, for consistency
+
+**Verified:** Calling `getFixtures("maccabi-haifa")` against the live FotMob page now returns 12 upcoming fixtures, 12 results, and 10 league results. I did not exercise the table, squad, or history modules after the change, only checked that they parse.
+
+**Next step:** The server on port 3000 is still running the old code, so restart it to pick up the change. Your uncommitted `server.js` edit (the version number in the startup log) is untouched.
+--------------------------------------------------------------------------------
+[2026-11-25T19:48:47.179Z] USER
+--------------------------------------------------------------------------------
+update version to 26.11.25
+--------------------------------------------------------------------------------
+[2026-11-25T19:48:55.009Z] ASSISTANT
+--------------------------------------------------------------------------------
+The version is now `26.11.25` in `package.json` and `package-lock.json`. The app reads it from `package.json`, so the footer and the startup log will show it after a restart.
+--------------------------------------------------------------------------------
+[2026-11-25T19:52:13.776Z] USER
+--------------------------------------------------------------------------------
+what does @scripts/tar-changed.sh fiel do ?
+--------------------------------------------------------------------------------
+[2026-11-25T19:52:22.386Z] ASSISTANT
+--------------------------------------------------------------------------------
+`scripts/tar-changed.sh` creates a `.tar.gz` archive containing only the files Git reports as changed in the repo.
+
+It works like this:
+
+1. It `cd`s to the Git repo root, so paths are always relative to the repo.
+2. It runs `git status --porcelain -z --untracked-files=all` and reads each entry. `-z` makes it safe for unusual filenames. `--untracked-files=all` lists individual files inside new folders, not just the folder.
+3. It keeps modified, added, renamed, and untracked files. It skips deleted files, since they no longer exist on disk.
+4. It writes the archive to the path you pass as the first argument, or to `changed-YYYYMMDD-HHMMSS.tar.gz` in the repo root by default. It then prints the list of files it packed.
+5. If there are no changes, it prints `No changed files.` and exits without creating an archive.
+
+It also sets `COPYFILE_DISABLE=1` and tries `tar --no-xattrs` so macOS does not add `._*` AppleDouble files that clutter Linux extractions. If that tar call fails, it retries with plain `tar`.
+
+Git-ignored files such as `.env`, `node_modules/`, and most of `data/` are not included, because Git does not report them.
+
+Usage:
+
+```bash
+scripts/tar-changed.sh                 # writes changed-<timestamp>.tar.gz in the repo root
+scripts/tar-changed.sh my-changes.tgz  # writes to the given path
+```
